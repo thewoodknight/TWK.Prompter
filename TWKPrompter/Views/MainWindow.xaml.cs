@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using TWKPrompter.ViewModel;
+using TWKPrompter.Messages;
 using System;
 using System.IO;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 
 
-namespace TWKPrompter
+namespace TWKPrompter.Views
 {
     public partial class MainWindow : Window
     {
@@ -34,7 +35,7 @@ namespace TWKPrompter
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnOpenClick(object sender, RoutedEventArgs e)
         {
             string text;
             OpenFileDialog openFileDialog = new OpenFileDialog();

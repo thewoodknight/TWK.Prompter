@@ -1,4 +1,4 @@
-﻿namespace TWKPrompter.ViewModel
+﻿namespace TWKPrompter.Messages
 {
     public class PlayPauseMessage
     {

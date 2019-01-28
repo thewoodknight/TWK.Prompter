@@ -44,6 +44,10 @@ namespace TWKPrompter.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+
+            //This is going to get tedious quickly
+            SimpleIoc.Default.Register<PlayerViewModel>();
+            SimpleIoc.Default.Register<SettingsViewModel>();
         }
 
         public MainViewModel Main
@@ -53,7 +57,23 @@ namespace TWKPrompter.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
-        
+
+        public PlayerViewModel Player
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PlayerViewModel>();
+            }
+        }
+
+        public SettingsViewModel Settings
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SettingsViewModel>();
+            }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
