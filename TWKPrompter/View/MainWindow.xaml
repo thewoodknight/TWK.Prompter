@@ -1,4 +1,4 @@
-﻿<Window x:Class="TWKPrompter.Views.MainWindow"
+﻿<Window x:Class="TWKPrompter.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,8 +7,7 @@
         Foreground="White"
         Background="Black"
         Height="450" Width="800"
-        
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        >
     <Grid Margin="10">
         <StackPanel Orientation="Horizontal">
             <Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnOpenClick" Width="75"/>

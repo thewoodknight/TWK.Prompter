@@ -1,17 +1,19 @@
+using System;
+using System.Windows.Documents;
+using Stylet;
 using TWKPrompter.Messages;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
+
 
 namespace TWKPrompter.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : Screen 
     {
-        public RelayCommand SlowerCommand { get; private set; }
-        public RelayCommand FasterCommand { get; private set; }
-        public RelayCommand SmallerCommand { get; private set; }
-        public RelayCommand LargerCommand { get; private set; }
-        public RelayCommand MirrorCommand { get; private set; }
-        public RelayCommand PlayPauseCommand { get; private set; }
+        //public RelayCommand SlowerCommand { get; private set; }
+        //public RelayCommand FasterCommand { get; private set; }
+        //public RelayCommand SmallerCommand { get; private set; }
+        //public RelayCommand LargerCommand { get; private set; }
+        //public RelayCommand MirrorCommand { get; private set; }
+        //public RelayCommand PlayPauseCommand { get; private set; }
 
         private double _scrollspeed = 20;
         public double ScrollSpeed
@@ -20,8 +22,7 @@ namespace TWKPrompter.ViewModel
             set
             {
                 _scrollspeed = value;
-
-                RaisePropertyChanged();
+                NotifyOfPropertyChange();
             }
         }
 
@@ -33,8 +34,8 @@ namespace TWKPrompter.ViewModel
             {
                 _scale = value;
 
-                RaisePropertyChanged();
-                RaisePropertyChanged(() => RenderOffsetScale);
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(() => RenderOffsetScale);
             }
         }
 
@@ -46,7 +47,7 @@ namespace TWKPrompter.ViewModel
             {
                 _mirror = value;
 
-                RaisePropertyChanged();
+                NotifyOfPropertyChange();
             }
         }
 
@@ -58,8 +59,14 @@ namespace TWKPrompter.ViewModel
             {
                 _playing = value;
 
-                RaisePropertyChanged();
+                NotifyOfPropertyChange();
             }
+        }
+
+        internal void Play(TextRange richText)
+        {
+            var viewModel = new PlayerViewModel();
+            this.windowManager.ShowWindow(viewModel);
         }
 
         public System.Windows.Point RenderOffsetScale
@@ -68,14 +75,18 @@ namespace TWKPrompter.ViewModel
 
         }
 
-        public MainViewModel()
+        private IWindowManager windowManager;
+        public MainViewModel(IWindowManager windowManager)
         {
-            SlowerCommand = new RelayCommand(Slower);
-            FasterCommand = new RelayCommand(Faster);
-            SmallerCommand = new RelayCommand(Smaller);
-            LargerCommand = new RelayCommand(Larger);
-            MirrorCommand = new RelayCommand(MirrorFlip);
-            PlayPauseCommand = new RelayCommand(PlayPause);
+            this.windowManager = windowManager;
+             //SlowerCommand = new RelayCommand(Slower);
+            //FasterCommand = new RelayCommand(Faster);
+            //SmallerCommand = new RelayCommand(Smaller);
+            //LargerCommand = new RelayCommand(Larger);
+            //MirrorCommand = new RelayCommand(MirrorFlip);
+            //PlayPauseCommand = new RelayCommand(PlayPause);
+
+            
 
         }
 
@@ -92,7 +103,7 @@ namespace TWKPrompter.ViewModel
         {
             Playing = !Playing;
 
-            MessengerInstance.Send(new PlayPauseMessage(Playing));
+            //MessengerInstance.Send(new PlayPauseMessage(Playing));
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using GalaSoft.MvvmLight.Threading;
+
 
 namespace TWKPrompter
 {
@@ -7,7 +7,7 @@ namespace TWKPrompter
     {
         static App()
         {
-            DispatcherHelper.Initialize();
+            
         }
     }
 }
