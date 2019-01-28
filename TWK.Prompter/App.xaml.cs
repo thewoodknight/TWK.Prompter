@@ -1,13 +1,13 @@
 ﻿using System.Windows;
-using GalaSoft.MvvmLight.Threading;
 
-namespace TWKPrompter
+
+namespace TWK.Prompter
 {
     public partial class App : Application
     {
         static App()
         {
-            DispatcherHelper.Initialize();
+            
         }
     }
 }

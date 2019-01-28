@@ -1,0 +1,43 @@
+﻿<controls:MetroWindow
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls" x:Class="TWK.Prompter.View.PlayerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:s="https://github.com/canton7/Stylet"
+        mc:Ignorable="d"
+        xmlns:wi="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:TWK.Prompter.Converters"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="TWK.Prompter Player" Height="450" Width="800"     SaveWindowPosition="True">
+
+    <Window.Resources>
+        <local:RenderScaleConverter x:Key="RenderScaleConverter" />
+    </Window.Resources>
+
+    <Grid Background="{StaticResource GrayBrush1}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer x:Name="svText" CanContentScroll="False" Grid.Row="0">
+            <xctk:RichTextBox IsReadOnly="True"  Grid.Column="1" x:Name="rtbText" Text="{Binding Text}" FontSize="40" RenderTransformOrigin="{Binding Settings.Scale, Converter={StaticResource RenderScaleConverter}}"  Foreground="White" Background="{x:Null}">
+                <xctk:RichTextBox.TextFormatter>
+                    <xctk:RtfFormatter />
+                </xctk:RichTextBox.TextFormatter>
+                <xctk:RichTextBox.LayoutTransform>
+                    <ScaleTransform ScaleX="{Binding Settings.Scale}" ScaleY="{Binding Settings.Scale}"/>
+                </xctk:RichTextBox.LayoutTransform>
+                <xctk:RichTextBox.RenderTransform>
+                    <ScaleTransform ScaleX="{Binding Settings.Mirror}" />
+                </xctk:RichTextBox.RenderTransform>
+            </xctk:RichTextBox>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="Play" Content=">" Command="{s:Action PlayPause}" />
+        </StackPanel>
+    </Grid>
+
+</controls:MetroWindow>

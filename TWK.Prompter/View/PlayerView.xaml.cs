@@ -1,33 +1,31 @@
-﻿using Microsoft.Win32;
-using TWKPrompter.ViewModel;
-using TWKPrompter.Messages;
+﻿using MahApps.Metro.Controls;
+using Stylet;
 using System;
-using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
+using TWK.Prompter.Events;
+using TWK.Prompter.ViewModel;
 
-
-namespace TWKPrompter.Views
+namespace TWK.Prompter.View
 {
-    public partial class MainWindow : Window
+    public partial class PlayerView : MetroWindow, IHandle<PlayPauseEvent>
     {
-
-        private MainViewModel vm;
-        public MainWindow()
+        private bool playing = false;
+        private PlayerViewModel pvm { get { return (PlayerViewModel)DataContext; } }
+        public PlayerView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
-            vm = (MainViewModel)DataContext;
 
-            GalaSoft.MvvmLight.Messaging.Messenger.Default.Register<PlayPauseMessage>(this, PlayPause);
+            //I'm not sure I love this approach, but it works
+            eventAggregator.Subscribe(this);
         }
 
-        private void PlayPause(PlayPauseMessage m)
+        public void Handle(PlayPauseEvent m)
         {
-            WindowState = WindowState.Maximized;
-            WindowStyle = WindowStyle.None;
+            // WindowState = WindowState.Maximized;
+            // WindowStyle = WindowStyle.None;
+            playing = m.Playing;
 
             if (m.Playing)
             {
@@ -35,23 +33,10 @@ namespace TWKPrompter.Views
             }
         }
 
-        private void btnOpenClick(object sender, RoutedEventArgs e)
-        {
-            string text;
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-            {
-                text = File.ReadAllText(openFileDialog.FileName);
-                MemoryStream stream = new MemoryStream(ASCIIEncoding.Default.GetBytes(text));
-                TextRange range = new TextRange(rtbText.Document.ContentStart, rtbText.Document.ContentEnd);
-                range.Load(stream, DataFormats.Rtf);
-            }
-        }
-
         //https://stackoverflow.com/questions/17930481/programmatically-scrolling-a-scrollviewer-with-a-timer-becomes-jerky
         private void Shift(ScrollViewer target, double distance = 20)
         {
-            double scrollSpeed = vm.ScrollSpeed;
+          //  double scrollSpeed = pvm.Settings.ScrollSpeed;
             double startOffset = target.VerticalOffset;
             double destinationOffset = target.VerticalOffset + distance;
 
@@ -67,7 +52,7 @@ namespace TWKPrompter.Views
                 distance = target.ScrollableHeight - target.VerticalOffset;
             }
 
-            double animationTime = distance / scrollSpeed;
+            double animationTime = distance / pvm.Settings.ScrollSpeed;
             DateTime startTime = DateTime.Now;
 
             EventHandler renderHandler = null;
@@ -81,18 +66,11 @@ namespace TWKPrompter.Views
                     CompositionTarget.Rendering -= renderHandler;
                 }
 
-                if (vm.Playing)
-                    target.ScrollToVerticalOffset(startOffset + (elapsed * vm.ScrollSpeed));
+                if (playing)
+                    target.ScrollToVerticalOffset(startOffset + (elapsed * pvm.Settings.ScrollSpeed));
             };
 
             CompositionTarget.Rendering += renderHandler;
         }
-
-        private void BtnSettings_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
     }
 }

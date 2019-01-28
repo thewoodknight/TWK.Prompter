@@ -1,0 +1,62 @@
+﻿<controls:MetroWindow
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls" x:Class="TWK.Prompter.View.SettingsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:hotkey="clr-namespace:TWK.HotkeyControl;assembly=TWK.HotkeyControl"
+        Title="TWK.Prompter Settings" Height="450" Width="800">
+
+    <StackPanel Margin="10">
+        <TextBlock FontWeight="Bold" FontSize="14">ShortCut Keys</TextBlock>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="223"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Margin="0,0,5,5">Speed Up</Label>
+            <Label Grid.Column="0"  Grid.Row="1" Margin="0,0,5,5">Speed Down</Label>
+            <Label  Grid.Column="0"  Grid.Row="2" Margin="0,0,5,5">Size Up</Label>
+            <Label  Grid.Column="0"  Grid.Row="3" Margin="0,0,5,5">Size Down</Label>
+
+            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="0"
+                                       Width="91"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Hotkey="{Binding Settings.SpeedUpKey}" />
+
+            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="1"
+                                       Width="91"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Hotkey="{Binding Settings.SpeedDownKey}" />
+
+            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="2"
+                                       Width="91"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Hotkey="{Binding Settings.BiggerKey}"  />
+
+            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="3"
+                                       Width="91"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Hotkey="{Binding Settings.SmallerKey}" />
+
+        </Grid>
+    </StackPanel>
+</controls:MetroWindow>
