@@ -13,12 +13,6 @@ namespace TWKPrompter.View
         public MainView()
         {
             InitializeComponent();
-
-            var itemProvider = new ItemProvider();
-
-            var items = itemProvider.GetItems(@"C:\Users\paul\OneDrive\scripts");
-
-            tv.DataContext = items;
         }
 
         private void TreeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -27,11 +21,12 @@ namespace TWKPrompter.View
             string text;
 
             text = File.ReadAllText(i.Path);
-            MemoryStream stream = new MemoryStream(ASCIIEncoding.Default.GetBytes(text));
+
+            //This is the trickier thing to move out of the view and into the view model
+            MemoryStream stream = new MemoryStream(Encoding.Default.GetBytes(text));
             TextRange range = new TextRange(rtbText.Document.ContentStart, rtbText.Document.ContentEnd);
             range.Load(stream, DataFormats.Rtf);
 
-            Play();
         }
 
         private void Play()
@@ -40,21 +35,9 @@ namespace TWKPrompter.View
             var richText = new TextRange(rtbText.Document.ContentStart, rtbText.Document.ContentEnd);
 
             //surely there is a better way?
-            //Messenger.Default.Send<TextRangeMessage>(new TextRangeMessage(richText));
-
-            //var x = new PlayerViewModel();
-
+            //A temp file could be saved with the rtbText.Document, then the path of that passed to the player.
+            //This is to allow changes to be made in the editor and passed along, rather than just from file.
             ((MainViewModel)this.DataContext).Play(richText);
         }
-    }
-
-    public class TextRangeMessage
-    {
-        public TextRangeMessage(TextRange textRange)
-        {
-            TextRange = textRange;
-        }
-
-        public TextRange TextRange { get; }
     }
 }

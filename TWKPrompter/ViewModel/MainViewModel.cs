@@ -1,28 +1,24 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Windows.Documents;
 using Stylet;
 using TWKPrompter.Messages;
-
+using TWKPrompter.Models;
 
 namespace TWKPrompter.ViewModel
 {
     public class MainViewModel : Screen 
     {
-        //public RelayCommand SlowerCommand { get; private set; }
-        //public RelayCommand FasterCommand { get; private set; }
-        //public RelayCommand SmallerCommand { get; private set; }
-        //public RelayCommand LargerCommand { get; private set; }
-        //public RelayCommand MirrorCommand { get; private set; }
-        //public RelayCommand PlayPauseCommand { get; private set; }
-
         private double _scrollspeed = 20;
         public double ScrollSpeed
         {
             get { return _scrollspeed; }
             set
             {
-                _scrollspeed = value;
-                NotifyOfPropertyChange();
+                SetAndNotify(ref _scrollspeed, value);
             }
         }
 
@@ -32,9 +28,7 @@ namespace TWKPrompter.ViewModel
             get { return _scale; }
             set
             {
-                _scale = value;
-
-                NotifyOfPropertyChange();
+                SetAndNotify(ref _scale, value);
                 NotifyOfPropertyChange(() => RenderOffsetScale);
             }
         }
@@ -45,9 +39,7 @@ namespace TWKPrompter.ViewModel
             get { return _mirror; }
             set
             {
-                _mirror = value;
-
-                NotifyOfPropertyChange();
+                SetAndNotify(ref _mirror, value);
             }
         }
 
@@ -57,16 +49,14 @@ namespace TWKPrompter.ViewModel
             get { return _playing; }
             set
             {
-                _playing = value;
-
-                NotifyOfPropertyChange();
+                SetAndNotify(ref _playing, value);
             }
         }
 
-        internal void Play(TextRange richText)
+        public void Play(TextRange richText)
         {
-            var viewModel = new PlayerViewModel();
-            this.windowManager.ShowWindow(viewModel);
+            var viewModel = new PlayerViewModel(richText);
+            windowManager.ShowWindow(viewModel);
         }
 
         public System.Windows.Point RenderOffsetScale
@@ -75,19 +65,46 @@ namespace TWKPrompter.ViewModel
 
         }
 
+        public ObservableCollection<Item> Files { get; set; }
+
         private IWindowManager windowManager;
         public MainViewModel(IWindowManager windowManager)
         {
             this.windowManager = windowManager;
-             //SlowerCommand = new RelayCommand(Slower);
-            //FasterCommand = new RelayCommand(Faster);
-            //SmallerCommand = new RelayCommand(Smaller);
-            //LargerCommand = new RelayCommand(Larger);
-            //MirrorCommand = new RelayCommand(MirrorFlip);
-            //PlayPauseCommand = new RelayCommand(PlayPause);
+            Files = new ObservableCollection<Item>(GetItems(@"C:\Users\paul\OneDrive\scripts"));
+        }
 
-            
+        public List<Item> GetItems(string path)
+        {
+            var items = new List<Item>();
 
+            var dirInfo = new DirectoryInfo(path);
+
+            foreach (var directory in dirInfo.GetDirectories())
+            {
+                var item = new DirectoryItem
+                {
+                    Name = directory.Name,
+                    Path = directory.FullName,
+                    Items = GetItems(directory.FullName)
+                };
+
+                items.Add(item);
+            }
+
+            foreach (var file in dirInfo.GetFiles().Where(f  => f.Extension == ".rtf"))
+            {
+                
+                var item = new FileItem
+                {
+                    Name = file.Name,
+                    Path = file.FullName
+                };
+
+                items.Add(item);
+            }
+
+            return items;
         }
 
         public void MirrorFlip()
@@ -99,11 +116,6 @@ namespace TWKPrompter.ViewModel
         public void Slower() { ScrollSpeed -= 10; }
         public void Faster() { ScrollSpeed += 10; }
 
-        public void PlayPause()
-        {
-            Playing = !Playing;
 
-            //MessengerInstance.Send(new PlayPauseMessage(Playing));
-        }
     }
 }

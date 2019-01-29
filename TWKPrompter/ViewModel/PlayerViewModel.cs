@@ -1,31 +1,17 @@
 ﻿using Stylet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TWKPrompter.Messages;
+using System.Windows.Documents;
 
 namespace TWKPrompter.ViewModel
 {
     public class PlayerViewModel : Screen
     {
-        //public RelayCommand SlowerCommand { get; private set; }
-        //public RelayCommand FasterCommand { get; private set; }
-        //public RelayCommand SmallerCommand { get; private set; }
-        //public RelayCommand LargerCommand { get; private set; }
-        //public RelayCommand MirrorCommand { get; private set; }
-        //public RelayCommand PlayPauseCommand { get; private set; }
-
         private double _scrollspeed = 20;
         public double ScrollSpeed
         {
             get { return _scrollspeed; }
             set
             {
-                _scrollspeed = value;
-
-       //         RaisePropertyChanged();
+                SetAndNotify(ref _scrollspeed, value);
             }
         }
 
@@ -35,10 +21,8 @@ namespace TWKPrompter.ViewModel
             get { return _scale; }
             set
             {
-                _scale = value;
-
-                //RaisePropertyChanged();
-                //RaisePropertyChanged(() => RenderOffsetScale);
+                SetAndNotify(ref _scale, value);
+                NotifyOfPropertyChange(() => RenderOffsetScale);
             }
         }
 
@@ -48,9 +32,7 @@ namespace TWKPrompter.ViewModel
             get { return _mirror; }
             set
             {
-                _mirror = value;
-
-                //RaisePropertyChanged();
+                SetAndNotify(ref _mirror, value);
             }
         }
 
@@ -60,11 +42,10 @@ namespace TWKPrompter.ViewModel
             get { return _playing; }
             set
             {
-                _playing = value;
-
-                //RaisePropertyChanged();
+                SetAndNotify(ref _playing, value);
             }
         }
+
 
         public System.Windows.Point RenderOffsetScale
         {
@@ -72,14 +53,8 @@ namespace TWKPrompter.ViewModel
 
         }
 
-        public PlayerViewModel()
+        public PlayerViewModel(TextRange text)
         {
-            //SlowerCommand = new RelayCommand(Slower);
-            //FasterCommand = new RelayCommand(Faster);
-            //SmallerCommand = new RelayCommand(Smaller);
-            //LargerCommand = new RelayCommand(Larger);
-            //MirrorCommand = new RelayCommand(MirrorFlip);
-            //PlayPauseCommand = new RelayCommand(PlayPause);
 
         }
 
@@ -95,8 +70,6 @@ namespace TWKPrompter.ViewModel
         public void PlayPause()
         {
             Playing = !Playing;
-
-            //MessengerInstance.Send(new PlayPauseMessage(Playing));
         }
 
     }
