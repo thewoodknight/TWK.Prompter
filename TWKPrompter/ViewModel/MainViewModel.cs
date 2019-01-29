@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using Stylet;
 //using TWKPrompter.Messages;
@@ -116,10 +117,11 @@ namespace TWKPrompter.ViewModel
             return items;
         }
 
-        public void Load()
+        public void LoadFile(object sender, EventArgs e)
         {
-            var i = Files.First();
-            Text = File.ReadAllText(i.Path);
+            var item = (Item)((TreeView)sender).SelectedItem;//This is gross
+            Text = File.ReadAllText(item.Path);
+
         }
 
         public void Play()

@@ -29,7 +29,7 @@
 
         <StackPanel Margin="10">
             <TextBlock HorizontalAlignment="Left" Text="My Scripts" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-            <TreeView  x:Name="tv" ItemsSource="{Binding Files}" MouseDoubleClick="TreeView_MouseDoubleClick" Height="300" BorderBrush="{x:Null}" Margin="5,0,0,0" />
+            <TreeView  x:Name="tv" ItemsSource="{Binding Files}" MouseDoubleClick="{s:Action LoadFile}" Height="300" BorderBrush="{x:Null}" Margin="5,0,0,0" />
             <TextBlock HorizontalAlignment="Left" Text="Playback" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
             <StackPanel Margin="5,0,0,0">
                 <CheckBox Content="Mirror" />
