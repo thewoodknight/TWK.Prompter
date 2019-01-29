@@ -1,5 +1,7 @@
 ﻿using Stylet;
+using System;
 using System.Windows.Documents;
+using TWKPrompter.Events;
 
 namespace TWKPrompter.ViewModel
 {
@@ -53,9 +55,22 @@ namespace TWKPrompter.ViewModel
 
         }
 
-        public PlayerViewModel(TextRange text)
-        {
+        private string _text = "";
+        private readonly IEventAggregator eventAggregator;
 
+        public string Text
+        {
+            get { return _text; }
+            set
+            {
+                SetAndNotify(ref _text, value);
+            }
+        }
+
+        public PlayerViewModel(IEventAggregator eventAggregator, String text)
+        {
+            this.eventAggregator = eventAggregator;
+            Text = text;
         }
 
         public void MirrorFlip()
@@ -70,6 +85,8 @@ namespace TWKPrompter.ViewModel
         public void PlayPause()
         {
             Playing = !Playing;
+            eventAggregator.Publish(new PlayPauseEvent(Playing));
+            Console.WriteLine(Playing);
         }
 
     }

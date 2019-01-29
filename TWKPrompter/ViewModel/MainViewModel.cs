@@ -3,15 +3,27 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Documents;
 using Stylet;
-using TWKPrompter.Messages;
+//using TWKPrompter.Messages;
 using TWKPrompter.Models;
 
 namespace TWKPrompter.ViewModel
 {
     public class MainViewModel : Screen 
     {
+        //Use Fody to clean up this mess of properties.
+        private string _text = "";
+        public string Text
+        {
+            get { return _text; }
+            set
+            {
+                SetAndNotify(ref _text, value);
+            }
+        }
+
         private double _scrollspeed = 20;
         public double ScrollSpeed
         {
@@ -53,24 +65,21 @@ namespace TWKPrompter.ViewModel
             }
         }
 
-        public void Play(TextRange richText)
-        {
-            var viewModel = new PlayerViewModel(richText);
-            windowManager.ShowWindow(viewModel);
-        }
+        public ObservableCollection<Item> Files { get; set; }
 
         public System.Windows.Point RenderOffsetScale
         {
             get { return new System.Windows.Point(_scale / 2, _scale / 2); }
 
         }
-
-        public ObservableCollection<Item> Files { get; set; }
-
+        
         private IWindowManager windowManager;
-        public MainViewModel(IWindowManager windowManager)
+        private readonly IEventAggregator eventAggregator;
+
+        public MainViewModel(IWindowManager windowManager, IEventAggregator eventAggregator)
         {
             this.windowManager = windowManager;
+            this.eventAggregator = eventAggregator;
             Files = new ObservableCollection<Item>(GetItems(@"C:\Users\paul\OneDrive\scripts"));
         }
 
@@ -107,15 +116,17 @@ namespace TWKPrompter.ViewModel
             return items;
         }
 
-        public void MirrorFlip()
+        public void Load()
         {
-            var x = (Mirror == -1) ? Mirror = 1 : Mirror = -1;
+            var i = Files.First();
+            Text = File.ReadAllText(i.Path);
         }
-        public void Smaller() { Scale -= 0.5; }
-        public void Larger() { Scale += 0.5; }
-        public void Slower() { ScrollSpeed -= 10; }
-        public void Faster() { ScrollSpeed += 10; }
 
-
+        public void Play()
+        {
+            //more params like speed, mirror, scale should be passed in
+            var viewModel = new PlayerViewModel(eventAggregator, Text);
+            windowManager.ShowWindow(viewModel);
+        }
     }
 }

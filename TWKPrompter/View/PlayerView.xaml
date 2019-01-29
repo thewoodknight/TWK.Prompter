@@ -3,19 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:s="https://github.com/canton7/Stylet"
         mc:Ignorable="d"
+                xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="TWKPrompter Player" Height="450" Width="800">
-    <ScrollViewer x:Name="svText" CanContentScroll="False">
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer x:Name="svText" CanContentScroll="False" Grid.Row="0">
+            <xctk:RichTextBox  Grid.Column="1" x:Name="rtbText" Text="{Binding Text}" FontSize="40" RenderTransformOrigin="{Binding RenderOffsetScale}"  Foreground="White" Background="Black">
+                <xctk:RichTextBox.TextFormatter>
+                    <xctk:RtfFormatter />
+                </xctk:RichTextBox.TextFormatter>
+                <xctk:RichTextBox.LayoutTransform>
+                    <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
+                </xctk:RichTextBox.LayoutTransform>
+                <xctk:RichTextBox.RenderTransform>
+                    <ScaleTransform ScaleX="{Binding Mirror}" />
+                </xctk:RichTextBox.RenderTransform>
+            </xctk:RichTextBox>
+        </ScrollViewer>
 
-        <RichTextBox x:Name="rtbText" FontSize="40" RenderTransformOrigin="{Binding RenderOffsetScale}" Foreground="White" Background="Black">
-            <!-- Honestly, this is a bit hacky, rather than addressing the document itself. However, it works -->
-            <!-- Downside is it breaks the mirroring when the scale is adjusted, unless RenderTransformOrigin is also offset by Scale -->
-            <RichTextBox.LayoutTransform>
-                <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
-            </RichTextBox.LayoutTransform>
-            <RichTextBox.RenderTransform>
-                <ScaleTransform ScaleX="{Binding Mirror}" />
-            </RichTextBox.RenderTransform>
-        </RichTextBox>
-    </ScrollViewer>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="Play" Content=">" Command="{s:Action PlayPause}" />
+        </StackPanel>
+    </Grid>
+
 </Window>

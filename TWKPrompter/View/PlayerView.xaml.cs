@@ -1,23 +1,29 @@
-﻿using System;
+﻿using Stylet;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using TWKPrompter.Messages;
+using TWKPrompter.Events;
 
 namespace TWKPrompter.View
 {
-    public partial class PlayerView : Window
+    public partial class PlayerView : Window, IHandle<PlayPauseEvent>
     {
+        private bool playing = false;
         private double ScrollSpeed = 10;
-        public PlayerView()
+        public PlayerView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
+
+            //I'm not sure I love this approach, but it works
+            eventAggregator.Subscribe(this);
         }
 
-        private void PlayPause(PlayPauseMessage m)
+        public void Handle(PlayPauseEvent m)
         {
-            WindowState = WindowState.Maximized;
-            WindowStyle = WindowStyle.None;
+            // WindowState = WindowState.Maximized;
+            // WindowStyle = WindowStyle.None;
+            playing = m.Playing;
 
             if (m.Playing)
             {
@@ -58,7 +64,7 @@ namespace TWKPrompter.View
                     CompositionTarget.Rendering -= renderHandler;
                 }
 
-                //if (vm.Playing)
+                if (playing)
                     target.ScrollToVerticalOffset(startOffset + (elapsed * ScrollSpeed));
             };
 
