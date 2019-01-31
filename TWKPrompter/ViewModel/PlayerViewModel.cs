@@ -1,6 +1,8 @@
 ﻿using Stylet;
 using System;
+using System.Collections.Generic;
 using System.Windows.Documents;
+using System.Windows.Input;
 using TWKPrompter.Events;
 
 namespace TWKPrompter.ViewModel
@@ -67,10 +69,37 @@ namespace TWKPrompter.ViewModel
             }
         }
 
-        public PlayerViewModel(IEventAggregator eventAggregator, String text)
+        //These keys can be user configurable later
+        Key PlayPauseKey = Key.Q;
+        Key FasterKey = Key.D;
+        Key SlowerKey = Key.A;
+        Key UpKey = Key.W;
+        Key DownKey = Key.S;
+
+        Dictionary<Key, Action> ShortcutKeys = new Dictionary<Key, Action>();
+
+        public PlayerViewModel(IEventAggregator eventAggregator, string text)
         {
             this.eventAggregator = eventAggregator;
             Text = text;
+
+            InitShortcuts();
+        }
+
+        // Can't just change the key values without clearing out the old one.
+        /*
+         ie, PlayPauseKey = Key.Space without first removing the old value wouldn't work
+         
+        */
+        private void InitShortcuts()
+        {
+            ShortcutKeys.Clear();
+            ShortcutKeys.Add(PlayPauseKey, () => PlayPause());
+            ShortcutKeys.Add(SlowerKey, () => Slower());
+            ShortcutKeys.Add(FasterKey, () => Faster());
+            ShortcutKeys.Add(UpKey, () => Larger());
+            ShortcutKeys.Add(DownKey, () => Smaller());
+            
         }
 
         public void MirrorFlip()
@@ -89,5 +118,12 @@ namespace TWKPrompter.ViewModel
             Console.WriteLine(Playing);
         }
 
+        public void KeyPressed(object sender, KeyEventArgs e)
+        {
+            Action a;
+            ShortcutKeys.TryGetValue(e.Key, out a);
+
+            a?.Invoke();
+        }
     }
 }

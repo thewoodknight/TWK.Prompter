@@ -5,15 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:s="https://github.com/canton7/Stylet"
         mc:Ignorable="d"
-                xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:wi="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="TWKPrompter Player" Height="450" Width="800">
+
+    <!-- From https://stackoverflow.com/questions/6205472/mvvm-passing-eventargs-as-command-parameter/28410798#28410798 
+    EventTrigger wasn't passing EventArgs with Stylet action. This does
+    -->
+    <wi:Interaction.Triggers>
+        <wi:EventTrigger EventName="KeyDown">
+            <ei:CallMethodAction TargetObject="{Binding}" MethodName="KeyPressed"/>
+        </wi:EventTrigger>
+    </wi:Interaction.Triggers>
+    
     <Grid Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <ScrollViewer x:Name="svText" CanContentScroll="False" Grid.Row="0">
-            <xctk:RichTextBox  Grid.Column="1" x:Name="rtbText" Text="{Binding Text}" FontSize="40" RenderTransformOrigin="{Binding RenderOffsetScale}"  Foreground="White" Background="Black">
+            <xctk:RichTextBox IsReadOnly="True"  Grid.Column="1" x:Name="rtbText" Text="{Binding Text}" FontSize="40" RenderTransformOrigin="{Binding RenderOffsetScale}"  Foreground="White" Background="Black">
                 <xctk:RichTextBox.TextFormatter>
                     <xctk:RtfFormatter />
                 </xctk:RichTextBox.TextFormatter>

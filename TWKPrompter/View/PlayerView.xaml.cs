@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using TWKPrompter.Events;
 
+
 namespace TWKPrompter.View
 {
     public partial class PlayerView : Window, IHandle<PlayPauseEvent>
