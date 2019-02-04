@@ -7,7 +7,6 @@ using System.Text;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using Stylet;
-//using TWKPrompter.Messages;
 using TWKPrompter.Models;
 
 namespace TWKPrompter.ViewModel
@@ -129,6 +128,12 @@ namespace TWKPrompter.ViewModel
             //more params like speed, mirror, scale should be passed in
             var viewModel = new PlayerViewModel(eventAggregator, Text);
             windowManager.ShowWindow(viewModel);
+        }
+
+        public void ShowSettings()
+        {
+            var settingsViewModel = new SettingsViewModel(eventAggregator);
+            windowManager.ShowDialog(settingsViewModel);
         }
     }
 }

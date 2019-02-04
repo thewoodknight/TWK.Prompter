@@ -38,6 +38,7 @@
                 <Label Content="Playback Speed" />
                 <Slider></Slider>
                 <Button  Command="{s:Action Play}" Content="Play" />
+                <Button Command="{s:Action ShowSettings}" Content="Settings" />
             </StackPanel>
         </StackPanel>
 

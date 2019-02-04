@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TWKPrompter.Views
+namespace TWKPrompter.View
 {
     public partial class SettingsView : Window
     {
