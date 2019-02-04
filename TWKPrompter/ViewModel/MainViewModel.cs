@@ -6,80 +6,43 @@ using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using PropertyChanged;
 using Stylet;
 using TWKPrompter.Models;
 
 namespace TWKPrompter.ViewModel
 {
-    public class MainViewModel : Screen 
+    public class MainViewModel : Screen
     {
-        //Use Fody to clean up this mess of properties.
-        private string _text = "";
-        public string Text
-        {
-            get { return _text; }
-            set
-            {
-                SetAndNotify(ref _text, value);
-            }
-        }
+        public string Text { get; set; }
+        public double ScrollSpeed { get; set; }
+        public bool Playing { get; set; }
+        public int Mirror { get; set; }
 
-        private double _scrollspeed = 20;
-        public double ScrollSpeed
-        {
-            get { return _scrollspeed; }
-            set
-            {
-                SetAndNotify(ref _scrollspeed, value);
-            }
-        }
-
-        private double _scale = 2;
-        public double Scale
-        {
-            get { return _scale; }
-            set
-            {
-                SetAndNotify(ref _scale, value);
-                NotifyOfPropertyChange(() => RenderOffsetScale);
-            }
-        }
-
-        private int _mirror = -1;
-        public int Mirror
-        {
-            get { return _mirror; }
-            set
-            {
-                SetAndNotify(ref _mirror, value);
-            }
-        }
-
-        private bool _playing = false;
-        public bool Playing
-        {
-            get { return _playing; }
-            set
-            {
-                SetAndNotify(ref _playing, value);
-            }
-        }
+        [AlsoNotifyFor("RenderOffsetScale")]
+        public double Scale { get; set; }
 
         public ObservableCollection<Item> Files { get; set; }
 
         public System.Windows.Point RenderOffsetScale
         {
-            get { return new System.Windows.Point(_scale / 2, _scale / 2); }
+            get { return new System.Windows.Point(Scale / 2, Scale / 2); }
 
         }
-        
+
         private IWindowManager windowManager;
         private readonly IEventAggregator eventAggregator;
+        private readonly SettingsManager settings;
+        private readonly SettingsViewModel settingsViewModel;
 
-        public MainViewModel(IWindowManager windowManager, IEventAggregator eventAggregator)
+        public MainViewModel(IWindowManager windowManager, IEventAggregator eventAggregator, SettingsManager Settings, SettingsViewModel settingsViewModel)
         {
+            Scale = 2;
+            Mirror = -1;
             this.windowManager = windowManager;
             this.eventAggregator = eventAggregator;
+            settings = Settings;
+            this.settingsViewModel = settingsViewModel;
             Files = new ObservableCollection<Item>(GetItems(@"C:\Users\paul\OneDrive\scripts"));
         }
 
@@ -101,9 +64,9 @@ namespace TWKPrompter.ViewModel
                 items.Add(item);
             }
 
-            foreach (var file in dirInfo.GetFiles().Where(f  => f.Extension == ".rtf"))
+            foreach (var file in dirInfo.GetFiles().Where(f => f.Extension == ".rtf"))
             {
-                
+
                 var item = new FileItem
                 {
                     Name = file.Name,
@@ -132,7 +95,6 @@ namespace TWKPrompter.ViewModel
 
         public void ShowSettings()
         {
-            var settingsViewModel = new SettingsViewModel(eventAggregator);
             windowManager.ShowDialog(settingsViewModel);
         }
     }
