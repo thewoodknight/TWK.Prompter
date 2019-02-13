@@ -10,17 +10,12 @@ namespace TWKPrompter.ViewModel
         public int Mirror { get; set; }
         
         private readonly IEventAggregator eventAggregator;
-        private readonly SettingsManager settings;
+        public SettingsManager Settings { get; set; }
 
         public SettingsViewModel(IEventAggregator eventAggregator, SettingsManager settings)
         {
             this.eventAggregator = eventAggregator;
-            this.settings = settings;
-        }
-
-        public void Beep()
-        {
-            var x = settings.Name;
+            this.Settings = settings;
         }
     }
 }

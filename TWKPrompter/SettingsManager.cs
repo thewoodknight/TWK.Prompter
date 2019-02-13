@@ -14,7 +14,9 @@ namespace TWKPrompter
 
         public Key SpeedUpKey
         {
-            get { return Properties.Settings.Default.SpeedUpKey;  }
+            get {
+                return Properties.Settings.Default.SpeedUpKey;
+            }
             set
             {
                 Properties.Settings.Default.SpeedUpKey = value;
