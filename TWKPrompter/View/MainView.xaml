@@ -6,6 +6,7 @@
           xmlns:s="https://github.com/canton7/Stylet"
          xmlns:Model="clr-namespace:TWKPrompter.Models" 
         mc:Ignorable="d"
+        xmlns:local="clr-namespace:TWKPrompter.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="TWKPrompter" Height="557.898" Width="965.021">
 
@@ -18,6 +19,10 @@
         <DataTemplate DataType="{x:Type Model:FileItem}">
             <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
         </DataTemplate>
+
+        
+            <local:RenderScaleConverter x:Key="RenderScaleConverter" />
+
 
     </Window.Resources>
 
@@ -33,8 +38,8 @@
             <TextBlock HorizontalAlignment="Left" Text="Playback" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
             <StackPanel Margin="5,0,0,0">
                 <CheckBox Content="Mirror" />
-                <Label Content="Font Size" />
-                <Slider></Slider>
+                <Label Content="Scale" />
+                <Slider Value="{Binding Settings.Scale}"></Slider>
                 <Label Content="Playback Speed" />
                 <Slider></Slider>
                 <Button  Command="{s:Action Play}" Content="Play" />
@@ -42,12 +47,12 @@
             </StackPanel>
         </StackPanel>
 
-        <xctk:RichTextBox  Grid.Column="1" x:Name="rtbText" Text="{Binding Text}" FontSize="40" RenderTransformOrigin="{Binding RenderOffsetScale}"  Foreground="White" Background="Black">
+        <xctk:RichTextBox  Grid.Column="1" x:Name="rtbText" Text="{Binding Text}" FontSize="40" RenderTransformOrigin="{Binding Settings.Scale, Converter={StaticResource RenderScaleConverter}}"   Foreground="White" Background="Black">
             <xctk:RichTextBox.TextFormatter>
                 <xctk:RtfFormatter />
             </xctk:RichTextBox.TextFormatter>
             <xctk:RichTextBox.LayoutTransform>
-                <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
+                <ScaleTransform ScaleX="{Binding Settings.Scale}" ScaleY="{Binding Settings.Scale}"/>
             </xctk:RichTextBox.LayoutTransform>
         </xctk:RichTextBox>
     </Grid>

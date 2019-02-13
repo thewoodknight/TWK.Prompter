@@ -9,65 +9,12 @@ namespace TWKPrompter.ViewModel
 {
     public class PlayerViewModel : Screen
     {
-        private double _scrollspeed = 20;
-        public double ScrollSpeed
-        {
-            get { return _scrollspeed; }
-            set
-            {
-                SetAndNotify(ref _scrollspeed, value);
-            }
-        }
-
-        private double _scale = 2;
-        public double Scale
-        {
-            get { return _scale; }
-            set
-            {
-                SetAndNotify(ref _scale, value);
-                NotifyOfPropertyChange(() => RenderOffsetScale);
-            }
-        }
-
-        private int _mirror = -1;
-        public int Mirror
-        {
-            get { return _mirror; }
-            set
-            {
-                SetAndNotify(ref _mirror, value);
-            }
-        }
-
-        private bool _playing = false;
-        public bool Playing
-        {
-            get { return _playing; }
-            set
-            {
-                SetAndNotify(ref _playing, value);
-            }
-        }
-
-
-        public System.Windows.Point RenderOffsetScale
-        {
-            get { return new System.Windows.Point(_scale / 2, _scale / 2); }
-
-        }
-
-        private string _text = "";
+        public double ScrollSpeed { get; set; }
+        public bool Playing { get; set; }
+        public SettingsManager Settings { get; set; }
         private readonly IEventAggregator eventAggregator;
 
-        public string Text
-        {
-            get { return _text; }
-            set
-            {
-                SetAndNotify(ref _text, value);
-            }
-        }
+        public string Text { get; set; }
 
         //These keys can be user configurable later
         Key PlayPauseKey = Key.Q;
@@ -78,9 +25,10 @@ namespace TWKPrompter.ViewModel
 
         Dictionary<Key, Action> ShortcutKeys = new Dictionary<Key, Action>();
 
-        public PlayerViewModel(IEventAggregator eventAggregator, string text)
+        public PlayerViewModel(IEventAggregator eventAggregator, SettingsManager Settings, string text)
         {
             this.eventAggregator = eventAggregator;
+            this.Settings = Settings;
             Text = text;
 
             InitShortcuts();
@@ -99,15 +47,15 @@ namespace TWKPrompter.ViewModel
             ShortcutKeys.Add(FasterKey, () => Faster());
             ShortcutKeys.Add(UpKey, () => Larger());
             ShortcutKeys.Add(DownKey, () => Smaller());
-            
+
         }
 
         public void MirrorFlip()
         {
-            var x = (Mirror == -1) ? Mirror = 1 : Mirror = -1;
+            var x = (Settings.Mirror == -1) ? Settings.Mirror = 1 : Settings.Mirror = -1;
         }
-        public void Smaller() { Scale -= 0.5; }
-        public void Larger() { Scale += 0.5; }
+        public void Smaller() { Settings.Scale -= 0.5; }
+        public void Larger() { Settings.Scale += 0.5; }
         public void Slower() { ScrollSpeed -= 10; }
         public void Faster() { ScrollSpeed += 10; }
 

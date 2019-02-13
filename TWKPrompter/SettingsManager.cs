@@ -9,7 +9,7 @@ namespace TWKPrompter
     {
         public SettingsManager()
         {
-
+            Mirror = -1;
         }
 
         public Key SpeedUpKey
@@ -52,6 +52,8 @@ namespace TWKPrompter
                 Save();
             }
         }
+        public double Scale { get; set; }
+        public int Mirror { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -15,33 +15,20 @@ namespace TWKPrompter.ViewModel
     public class MainViewModel : Screen
     {
         public string Text { get; set; }
-        public double ScrollSpeed { get; set; }
-        public bool Playing { get; set; }
-        public int Mirror { get; set; }
-
-        [AlsoNotifyFor("RenderOffsetScale")]
-        public double Scale { get; set; }
-
         public ObservableCollection<Item> Files { get; set; }
-
-        public System.Windows.Point RenderOffsetScale
-        {
-            get { return new System.Windows.Point(Scale / 2, Scale / 2); }
-
-        }
+        public SettingsManager Settings { get; set; }
 
         private IWindowManager windowManager;
         private readonly IEventAggregator eventAggregator;
-        private readonly SettingsManager settings;
         private readonly SettingsViewModel settingsViewModel;
 
         public MainViewModel(IWindowManager windowManager, IEventAggregator eventAggregator, SettingsManager Settings, SettingsViewModel settingsViewModel)
         {
-            Scale = 2;
-            Mirror = -1;
+
             this.windowManager = windowManager;
             this.eventAggregator = eventAggregator;
-            settings = Settings;
+            this.Settings = Settings;
+            this.Settings.Scale = 2;
             this.settingsViewModel = settingsViewModel;
             Files = new ObservableCollection<Item>(GetItems(@"C:\Users\paul\OneDrive\scripts"));
         }
@@ -81,15 +68,16 @@ namespace TWKPrompter.ViewModel
 
         public void LoadFile(object sender, EventArgs e)
         {
-            var item = (Item)((TreeView)sender).SelectedItem;//This is gross
-            Text = File.ReadAllText(item.Path);
+            var item = (Item)((TreeView)sender).SelectedItem;//This is gross, but TreeView doesnt' have a bindable SelectedItem
+            if (item != null)
+                Text = File.ReadAllText(item.Path);
 
         }
 
         public void Play()
         {
-            //more params like speed, mirror, scale should be passed in
-            var viewModel = new PlayerViewModel(eventAggregator, Text);
+            //more params like speed, mirror, scale should be passed in?
+            var viewModel = new PlayerViewModel(eventAggregator, Settings, Text);
             windowManager.ShowWindow(viewModel);
         }
 

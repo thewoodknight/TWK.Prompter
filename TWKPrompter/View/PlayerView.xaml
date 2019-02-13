@@ -7,13 +7,17 @@
         mc:Ignorable="d"
         xmlns:wi="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-        
+        xmlns:local="clr-namespace:TWKPrompter.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="TWKPrompter Player" Height="450" Width="800">
 
     <!-- From https://stackoverflow.com/questions/6205472/mvvm-passing-eventargs-as-command-parameter/28410798#28410798 
     EventTrigger wasn't passing EventArgs with Stylet action. This does
     -->
+    <Window.Resources>
+        <local:RenderScaleConverter x:Key="RenderScaleConverter" />
+    </Window.Resources>
+    
     <wi:Interaction.Triggers>
         <wi:EventTrigger EventName="KeyDown">
             <ei:CallMethodAction TargetObject="{Binding}" MethodName="KeyPressed"/>
@@ -26,15 +30,15 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <ScrollViewer x:Name="svText" CanContentScroll="False" Grid.Row="0">
-            <xctk:RichTextBox IsReadOnly="True"  Grid.Column="1" x:Name="rtbText" Text="{Binding Text}" FontSize="40" RenderTransformOrigin="{Binding RenderOffsetScale}"  Foreground="White" Background="Black">
+            <xctk:RichTextBox IsReadOnly="True"  Grid.Column="1" x:Name="rtbText" Text="{Binding Text}" FontSize="40" RenderTransformOrigin="{Binding Settings.Scale, Converter={StaticResource RenderScaleConverter}}"  Foreground="White" Background="Black">
                 <xctk:RichTextBox.TextFormatter>
                     <xctk:RtfFormatter />
                 </xctk:RichTextBox.TextFormatter>
                 <xctk:RichTextBox.LayoutTransform>
-                    <ScaleTransform ScaleX="{Binding Scale}" ScaleY="{Binding Scale}"/>
+                    <ScaleTransform ScaleX="{Binding Settings.Scale}" ScaleY="{Binding Settings.Scale}"/>
                 </xctk:RichTextBox.LayoutTransform>
                 <xctk:RichTextBox.RenderTransform>
-                    <ScaleTransform ScaleX="{Binding Mirror}" />
+                    <ScaleTransform ScaleX="{Binding Settings.Mirror}" />
                 </xctk:RichTextBox.RenderTransform>
             </xctk:RichTextBox>
         </ScrollViewer>
