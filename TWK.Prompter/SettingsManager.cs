@@ -2,72 +2,90 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using TWK.HotkeyControl;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace TWK.Prompter
 {
     public class SettingsManager : INotifyPropertyChanged
     {
+        private Settings settings;
+
         public SettingsManager()
         {
-            Mirror = -1;
+            if (!File.Exists("settings.json"))
+                File.WriteAllText("settings.json", JsonConvert.SerializeObject(new Settings()
+                {
+                    Mirror = -1,
+                    Scale = 1
+                }));
+
+            settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText("settings.json"));
+
         }
 
-        public Key SpeedUpKey
+        public Hotkey SpeedUpKey
         {
-            get {
-                return Properties.Settings.Default.SpeedUpKey;
+            get
+            {
+                return settings.SpeedUpKey;
             }
             set
             {
-                Properties.Settings.Default.SpeedUpKey = value;
+                settings.SpeedUpKey = value;
                 Save();
             }
         }
 
-        public Key SpeedDownKey
+        public Hotkey SpeedDownKey
         {
-            get { return Properties.Settings.Default.SpeedDownKey; }
+            get { return settings.SpeedDownKey; }
             set
             {
-                Properties.Settings.Default.SpeedDownKey = value;
+                settings.SpeedDownKey = value;
                 Save();
             }
         }
 
 
-        public Key BiggerKey
+        public Hotkey BiggerKey
         {
-            get { return Properties.Settings.Default.BiggerKey; }
+            get { return settings.BiggerKey; }
             set
             {
-                Properties.Settings.Default.BiggerKey = value;
+                settings.BiggerKey = value;
                 Save();
             }
         }
 
-        public Key SmallerKey
+        public Hotkey SmallerKey
         {
-            get { return Properties.Settings.Default.SmallerKey; }
+            get { return settings.SmallerKey; }
             set
             {
-                Properties.Settings.Default.SmallerKey = value;
+                settings.SmallerKey = value;
                 Save();
             }
         }
         public double Scale { get; set; }
-        public int Mirror { get; set; }
+       
+
+        public int Mirror
+        {
+            get { return settings.Mirror; }
+            set
+            {
+                settings.Mirror = value;
+                Save();
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void Save()
         {
-            Properties.Settings.Default.Save();
-        }
-
-        public string Name
-        {
-            get { return "foo"; }
-            set => throw new NotImplementedException();
+            File.WriteAllText("settings.json", JsonConvert.SerializeObject(settings));
         }
     }
 }

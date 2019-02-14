@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Documents;
 using System.Windows.Input;
+using TWK.HotkeyControl;
 using TWK.Prompter.Events;
 
 namespace TWK.Prompter.ViewModel
@@ -16,22 +17,17 @@ namespace TWK.Prompter.ViewModel
 
         public string Text { get; set; }
 
-        //These keys can be user configurable later
-        Key PlayPauseKey = Key.Q;
-        Key FasterKey = Key.D;
-        Key SlowerKey = Key.A;
-        Key UpKey = Key.W;
-        Key DownKey = Key.S;
-
-        Dictionary<Key, Action> ShortcutKeys = new Dictionary<Key, Action>();
+        WindowsHotkeyService hotkeyservice = new WindowsHotkeyService();
 
         public PlayerViewModel(IEventAggregator eventAggregator, SettingsManager Settings, string text)
         {
             this.eventAggregator = eventAggregator;
             this.Settings = Settings;
-            Text = text;
 
             InitShortcuts();
+
+            Text = text;
+
         }
 
         // Can't just change the key values without clearing out the old one.
@@ -41,13 +37,14 @@ namespace TWK.Prompter.ViewModel
         */
         private void InitShortcuts()
         {
-            ShortcutKeys.Clear();
-            ShortcutKeys.Add(PlayPauseKey, () => PlayPause());
-            ShortcutKeys.Add(SlowerKey, () => Slower());
-            ShortcutKeys.Add(FasterKey, () => Faster());
-            ShortcutKeys.Add(UpKey, () => Larger());
-            ShortcutKeys.Add(DownKey, () => Smaller());
 
+            hotkeyservice.RegisterHotkey(Settings.BiggerKey, () => Larger());
+            hotkeyservice.RegisterHotkey(Settings.SmallerKey, () => Smaller());
+            hotkeyservice.RegisterHotkey(Settings.SpeedDownKey, () => Slower());
+            hotkeyservice.RegisterHotkey(Settings.SpeedUpKey, () => {
+                Faster();
+                });
+            
         }
 
         public void MirrorFlip()
@@ -64,14 +61,6 @@ namespace TWK.Prompter.ViewModel
             Playing = !Playing;
             eventAggregator.Publish(new PlayPauseEvent(Playing));
             Console.WriteLine(Playing);
-        }
-
-        public void KeyPressed(object sender, KeyEventArgs e)
-        {
-            Action a;
-            ShortcutKeys.TryGetValue(e.Key, out a);
-
-            a?.Invoke();
         }
     }
 }

@@ -11,18 +11,9 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="TWK.Prompter Player" Height="450" Width="800">
 
-    <!-- From https://stackoverflow.com/questions/6205472/mvvm-passing-eventargs-as-command-parameter/28410798#28410798 
-    EventTrigger wasn't passing EventArgs with Stylet action. This does
-    -->
     <Window.Resources>
         <local:RenderScaleConverter x:Key="RenderScaleConverter" />
     </Window.Resources>
-    
-    <wi:Interaction.Triggers>
-        <wi:EventTrigger EventName="KeyDown">
-            <ei:CallMethodAction TargetObject="{Binding}" MethodName="KeyPressed"/>
-        </wi:EventTrigger>
-    </wi:Interaction.Triggers>
     
     <Grid Background="Black">
         <Grid.RowDefinitions>

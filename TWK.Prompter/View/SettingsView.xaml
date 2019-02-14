@@ -12,7 +12,7 @@
     <!-- From https://stackoverflow.com/questions/6205472/mvvm-passing-eventargs-as-command-parameter/28410798#28410798 
     EventTrigger wasn't passing EventArgs with Stylet action. This does
     -->
-    
+
     <StackPanel Margin="10">
         <TextBlock FontWeight="Bold" FontSize="14">ShortCut Keys</TextBlock>
 
@@ -34,16 +34,33 @@
             <Label  Grid.Column="0"  Grid.Row="2" Margin="0,0,5,5">Size Up</Label>
             <Label  Grid.Column="0"  Grid.Row="3" Margin="0,0,5,5">Size Down</Label>
 
-            <!--<TextBox Grid.Column="1" Grid.Row="0" Margin="0,0,5,5" Text="{Binding Settings.SpeedUpKey, Converter={StaticResource KeyToStringConverter}}" />
-            <TextBox Grid.Column="1" Grid.Row="1" Margin="0,0,5,5" Text="{Binding Settings.SpeedDownKey, Converter={StaticResource KeyToStringConverter}}"/>
-            <TextBox Grid.Column="1" Grid.Row="2" Margin="0,0,5,5" Text="{Binding Settings.BiggerKey, Converter={StaticResource KeyToStringConverter}}"/>-->
-            <!--<TextBox Grid.Column="1" Grid.Row="3" Margin="0,0,5,5" Text="{Binding Settings.SmallerKey, Converter={StaticResource KeyToStringConverter}}"/>-->
-            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="3"
-                                       Width="120"
+            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="0"
+                                       Width="91"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Center"
                                        FontSize="12"
-                                       Hotkey="{Binding SettingsService.TogglePollingHotkey}" />
+                                       Hotkey="{Binding Settings.SpeedUpKey}" />
+
+            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="1"
+                                       Width="91"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Hotkey="{Binding Settings.SpeedDownKey}" />
+
+            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="2"
+                                       Width="91"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Hotkey="{Binding Settings.BiggerKey}"  />
+
+            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="3"
+                                       Width="91"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Hotkey="{Binding Settings.SmallerKey}" />
 
         </Grid>
     </StackPanel>
