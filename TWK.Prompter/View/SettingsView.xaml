@@ -1,17 +1,12 @@
-﻿<Window x:Class="TWK.Prompter.View.SettingsView"
+﻿<controls:MetroWindow
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls" x:Class="TWK.Prompter.View.SettingsView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:s="https://github.com/canton7/Stylet"
         mc:Ignorable="d"
         xmlns:hotkey="clr-namespace:TWK.HotkeyControl;assembly=TWK.HotkeyControl"
-        Title="Settings" Height="450" Width="800">
-
-
-    <!-- From https://stackoverflow.com/questions/6205472/mvvm-passing-eventargs-as-command-parameter/28410798#28410798 
-    EventTrigger wasn't passing EventArgs with Stylet action. This does
-    -->
+        Title="TWK.Prompter Settings" Height="450" Width="800">
 
     <StackPanel Margin="10">
         <TextBlock FontWeight="Bold" FontSize="14">ShortCut Keys</TextBlock>
@@ -64,4 +59,4 @@
 
         </Grid>
     </StackPanel>
-</Window>
+</controls:MetroWindow>

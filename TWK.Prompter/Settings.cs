@@ -8,7 +8,8 @@ namespace TWK.Prompter
         public Hotkey SpeedDownKey;
         public Hotkey BiggerKey;
         public Hotkey SmallerKey;
-        public double Scale { get; set; }
-        public int Mirror { get; set; }
+        public double Scale;
+        public int Mirror;
+        public string ScriptFolder;
     }
 }

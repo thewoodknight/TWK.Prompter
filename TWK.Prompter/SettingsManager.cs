@@ -81,6 +81,16 @@ namespace TWK.Prompter
             }
         }
 
+        public string ScriptFolder
+        {
+            get { return settings.ScriptFolder; }
+            set
+            {
+                settings.ScriptFolder = value;
+                Save();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void Save()

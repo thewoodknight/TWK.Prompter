@@ -1,4 +1,5 @@
-﻿using Stylet;
+﻿using MahApps.Metro.Controls;
+using Stylet;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +9,7 @@ using TWK.Prompter.Events;
 
 namespace TWK.Prompter.View
 {
-    public partial class PlayerView : Window, IHandle<PlayPauseEvent>
+    public partial class PlayerView : MetroWindow, IHandle<PlayPauseEvent>
     {
         private bool playing = false;
         private double ScrollSpeed = 10;

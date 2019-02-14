@@ -30,7 +30,12 @@ namespace TWK.Prompter.ViewModel
             this.Settings = Settings;
             this.Settings.Scale = 2;
             this.settingsViewModel = settingsViewModel;
-            Files = new ObservableCollection<Item>(GetItems(@"C:\Users\paul\OneDrive\scripts"));
+
+            if (string.IsNullOrEmpty(Settings.ScriptFolder))
+            {    //prompt
+                Settings.ScriptFolder = @"C:\Users\paul\OneDrive\scripts";
+            }
+            Files = new ObservableCollection<Item>(GetItems(Settings.ScriptFolder));
         }
 
         public List<Item> GetItems(string path)
