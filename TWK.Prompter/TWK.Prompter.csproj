@@ -99,7 +99,6 @@
     <Compile Include="Events\PlayPauseEvent.cs" />
     <Compile Include="Models\DirectoryItem.cs" />
     <Compile Include="Models\FileItem.cs" />
-    <Compile Include="Models\Hotkey.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ItemProvider.cs" />
     <Compile Include="Settings.cs" />
