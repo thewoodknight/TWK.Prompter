@@ -10,6 +10,7 @@ namespace TWK.Prompter.ViewModel
 {
     public class PlayerViewModel : Screen
     {
+        public double ScrollSpeed { get; set; }
         public bool Playing { get; set; }
         public SettingsManager Settings { get; set; }
         private readonly IEventAggregator eventAggregator;
@@ -28,22 +29,25 @@ namespace TWK.Prompter.ViewModel
             Text = text;
 
         }
-        
+
+        // Can't just change the key values without clearing out the old one.
+        /*
+         ie, PlayPauseKey = Key.Space without first removing the old value wouldn't work
+         
+        */
         private void InitShortcuts()
         {
-            try
-            {
+            if (Settings.BiggerKey != null)
                 hotkeyservice.RegisterHotkey(Settings.BiggerKey, () => Larger());
+
+            if (Settings.SmallerKey != null)
                 hotkeyservice.RegisterHotkey(Settings.SmallerKey, () => Smaller());
+
+            if (Settings.SpeedDownKey != null)
                 hotkeyservice.RegisterHotkey(Settings.SpeedDownKey, () => Slower());
+
+            if (Settings.SpeedUpKey != null)
                 hotkeyservice.RegisterHotkey(Settings.SpeedUpKey, () => Faster());
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-
 
         }
 
@@ -53,6 +57,7 @@ namespace TWK.Prompter.ViewModel
         }
         public void Smaller() { Settings.Scale -= 0.5; }
         public void Larger() { Settings.Scale += 0.5; }
+
         public void Slower() { Settings.ScrollSpeed -= 10; }
         public void Faster() { Settings.ScrollSpeed += 10; }
 

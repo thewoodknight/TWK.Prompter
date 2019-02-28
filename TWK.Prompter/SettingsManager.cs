@@ -10,18 +10,19 @@ namespace TWK.Prompter
 {
     public class SettingsManager : INotifyPropertyChanged
     {
+        private const string settingsFile = "twk.prompter.settings";
         private Settings settings;
 
         public SettingsManager()
         {
-            if (!File.Exists("settings.json"))
-                File.WriteAllText("settings.json", JsonConvert.SerializeObject(new Settings()
+            if (!File.Exists(settingsFile))
+                File.WriteAllText(settingsFile, JsonConvert.SerializeObject(new Settings()
                 {
                     Mirror = -1,
                     Scale = 1
                 }));
 
-            settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText("settings.json"));
+            settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(settingsFile));
 
         }
 
@@ -100,13 +101,12 @@ namespace TWK.Prompter
                 Save();
             }
         }
-        
-
+       
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void Save()
         {
-            File.WriteAllText("settings.json", JsonConvert.SerializeObject(settings));
+            File.WriteAllText(settingsFile, JsonConvert.SerializeObject(settings));
         }
     }
 }

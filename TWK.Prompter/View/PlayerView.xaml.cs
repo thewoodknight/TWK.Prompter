@@ -13,6 +13,7 @@ namespace TWK.Prompter.View
     {
         private bool playing = false;
         private PlayerViewModel pvm { get { return (PlayerViewModel)DataContext; } }
+
         public PlayerView(IEventAggregator eventAggregator)
         {
             InitializeComponent();
@@ -37,6 +38,7 @@ namespace TWK.Prompter.View
         private void Shift(ScrollViewer target, double distance = 20)
         {
           //  double scrollSpeed = pvm.Settings.ScrollSpeed;
+
             double startOffset = target.VerticalOffset;
             double destinationOffset = target.VerticalOffset + distance;
 
@@ -68,6 +70,8 @@ namespace TWK.Prompter.View
 
                 if (playing)
                     target.ScrollToVerticalOffset(startOffset + (elapsed * pvm.Settings.ScrollSpeed));
+                    target.ScrollToVerticalOffset(startOffset + (elapsed * ScrollSpeed));
+
             };
 
             CompositionTarget.Rendering += renderHandler;
