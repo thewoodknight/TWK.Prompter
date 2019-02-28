@@ -37,8 +37,6 @@ namespace TWK.Prompter.View
         //https://stackoverflow.com/questions/17930481/programmatically-scrolling-a-scrollviewer-with-a-timer-becomes-jerky
         private void Shift(ScrollViewer target, double distance = 20)
         {
-          //  double scrollSpeed = pvm.Settings.ScrollSpeed;
-
             double startOffset = target.VerticalOffset;
             double destinationOffset = target.VerticalOffset + distance;
 
@@ -70,7 +68,6 @@ namespace TWK.Prompter.View
 
                 if (playing)
                     target.ScrollToVerticalOffset(startOffset + (elapsed * pvm.Settings.ScrollSpeed));
-                    target.ScrollToVerticalOffset(startOffset + (elapsed * ScrollSpeed));
 
             };
 
