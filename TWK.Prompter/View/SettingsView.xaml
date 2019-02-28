@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://github.com/canton7/Stylet"
         mc:Ignorable="d"
         xmlns:hotkey="clr-namespace:TWK.HotkeyControl;assembly=TWK.HotkeyControl"
         Title="TWK.Prompter Settings" Height="450" Width="800">
@@ -58,5 +59,8 @@
                                        Hotkey="{Binding Settings.SmallerKey}" />
 
         </Grid>
+        <TextBlock FontWeight="Bold" FontSize="14">Script Folder</TextBlock>
+        <TextBox Text="{Binding Settings.ScriptFolder}" />
+        <Button Content="Change" Command="{s:Action ChangePath}" />
     </StackPanel>
 </controls:MetroWindow>

@@ -17,5 +17,10 @@ namespace TWK.Prompter.ViewModel
             this.eventAggregator = eventAggregator;
             this.Settings = settings;
         }
+
+        public void ChangePath()
+        {
+          //Open file path here
+        }
     }
 }

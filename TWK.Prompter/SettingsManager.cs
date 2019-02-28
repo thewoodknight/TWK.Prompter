@@ -13,14 +13,19 @@ namespace TWK.Prompter
         private const string settingsFile = "twk.prompter.settings";
         private Settings settings;
 
+        private Settings GetDefaultSettings()
+        {
+            return new Settings()
+            {
+                ScriptFolder =  @"C:\Users\paul\OneDrive\scripts",
+                Mirror = -1,
+                Scale = 1,
+            };
+        }
         public SettingsManager()
         {
             if (!File.Exists(settingsFile))
-                File.WriteAllText(settingsFile, JsonConvert.SerializeObject(new Settings()
-                {
-                    Mirror = -1,
-                    Scale = 1
-                }));
+                File.WriteAllText(settingsFile, JsonConvert.SerializeObject(GetDefaultSettings()));
 
             settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(settingsFile));
 
