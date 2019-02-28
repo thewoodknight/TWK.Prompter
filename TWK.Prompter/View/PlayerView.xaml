@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:s="https://github.com/canton7/Stylet"
         mc:Ignorable="d"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:wi="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:TWK.Prompter.Converters"
@@ -14,6 +15,13 @@
 
     <Window.Resources>
         <local:RenderScaleConverter x:Key="RenderScaleConverter" />
+        
+        <!-- This removes the need to have it on every single button in this window -->
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}">
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
     </Window.Resources>
 
     <Grid Background="{StaticResource GrayBrush1}">
@@ -36,8 +44,8 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="Play" Content=">" Command="{s:Action PlayPause}" />
-            <Button x:Name="FullScreen" Content="X" Click="FullScreen_Click" />
+            <Button x:Name="Play"  Content="{iconPacks:Material PlayPause}" Command="{s:Action PlayPause}" />
+            <Button x:Name="FullScreen" Content="{iconPacks:Material FullScreen}" Click="FullScreen_Click" />
         </StackPanel>
     </Grid>
 

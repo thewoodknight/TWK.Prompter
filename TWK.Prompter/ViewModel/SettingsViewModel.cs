@@ -17,6 +17,10 @@ namespace TWK.Prompter.ViewModel
         {
             this.eventAggregator = eventAggregator;
             this.Settings = settings;
+
+            //Safe guard against randomly being set to zero-movement
+            if (Settings.ScrollSpeed <= 1)
+                Settings.ScrollSpeed = 10;
         }
 
         public void ChangePath()
