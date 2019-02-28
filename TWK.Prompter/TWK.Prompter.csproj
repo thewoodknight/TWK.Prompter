@@ -72,8 +72,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="TWK.HotkeyControl">
-      <HintPath>..\..\..\TWK.HotkeyControl\TWK.HotkeyControl\bin\Debug\TWK.HotkeyControl.dll</HintPath>
+    <Reference Include="TWK.HotkeyControl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TWK.HotkeyControl.0.1.0\lib\net\TWK.HotkeyControl.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
