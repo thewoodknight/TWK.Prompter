@@ -43,7 +43,7 @@
                 <Label Content="Scale" />
                 <Slider Value="{Binding Settings.Scale}" Minimum="1" Maximum="5"></Slider>
                 <Label Content="Playback Speed" />
-                <Slider Value="{Binding Settings.ScrollSpeed}" Minimum="1" Maximum="100"></Slider>
+                <Slider Value="{Binding Settings.ScrollSpeed}" Minimum="10" Maximum="100"></Slider>
                 <Button  Command="{s:Action Play}" Content="Play" />
                 <Button Command="{s:Action ShowSettings}" Content="Settings" />
             </StackPanel>

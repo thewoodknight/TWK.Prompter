@@ -11,6 +11,7 @@ namespace TWK.Prompter.View
 {
     public partial class PlayerView : MetroWindow, IHandle<PlayPauseEvent>
     {
+        private bool fullscreen = false;
         private bool playing = false;
         private PlayerViewModel pvm { get { return (PlayerViewModel)DataContext; } }
 
@@ -22,10 +23,35 @@ namespace TWK.Prompter.View
             eventAggregator.Subscribe(this);
         }
 
+        private void FullScreen_Click(object sender, RoutedEventArgs e)
+        {
+            if (!fullscreen)
+            {
+                IgnoreTaskbarOnMaximize = true;
+                ShowMaxRestoreButton = false;
+                ShowMinButton = false;
+                ShowTitleBar = false;
+                WindowStyle = WindowStyle.None;
+                ResizeMode = ResizeMode.NoResize;
+
+                WindowState = WindowState.Maximized;
+            } else
+            {
+                IgnoreTaskbarOnMaximize = false;
+                ShowMaxRestoreButton = true;
+                ShowMinButton = true;
+                ShowTitleBar = true;
+                WindowStyle = WindowStyle.SingleBorderWindow;
+                ResizeMode = ResizeMode.CanResize;
+
+                WindowState = WindowState.Normal;
+            }
+
+            fullscreen = !fullscreen;
+        }
         public void Handle(PlayPauseEvent m)
         {
-            // WindowState = WindowState.Maximized;
-            // WindowStyle = WindowStyle.None;
+
             playing = m.Playing;
 
             if (m.Playing)
@@ -73,5 +99,6 @@ namespace TWK.Prompter.View
 
             CompositionTarget.Rendering += renderHandler;
         }
+
     }
 }

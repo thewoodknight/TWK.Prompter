@@ -37,6 +37,7 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="Play" Content=">" Command="{s:Action PlayPause}" />
+            <Button x:Name="FullScreen" Content="X" Click="FullScreen_Click" />
         </StackPanel>
     </Grid>
 
