@@ -37,13 +37,17 @@ namespace TWK.Prompter.ViewModel
         */
         private void InitShortcuts()
         {
+            if (Settings.BiggerKey != null)
+                hotkeyservice.RegisterHotkey(Settings.BiggerKey, () => Larger());
 
-            hotkeyservice.RegisterHotkey(Settings.BiggerKey, () => Larger());
-            hotkeyservice.RegisterHotkey(Settings.SmallerKey, () => Smaller());
-            hotkeyservice.RegisterHotkey(Settings.SpeedDownKey, () => Slower());
-            hotkeyservice.RegisterHotkey(Settings.SpeedUpKey, () => {
-                Faster();
-                });
+            if (Settings.SmallerKey != null)
+                hotkeyservice.RegisterHotkey(Settings.SmallerKey, () => Smaller());
+
+            if (Settings.SpeedDownKey != null)
+                hotkeyservice.RegisterHotkey(Settings.SpeedDownKey, () => Slower());
+
+            if (Settings.SpeedUpKey != null)
+                hotkeyservice.RegisterHotkey(Settings.SpeedUpKey, () => Faster());
             
         }
 
