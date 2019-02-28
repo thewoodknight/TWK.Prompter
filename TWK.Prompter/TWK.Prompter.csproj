@@ -60,6 +60,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -105,6 +106,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\RenderScaleConverter.cs" />
     <Compile Include="Events\PlayPauseEvent.cs" />
+    <Compile Include="Events\ScriptFolderChangedEvent.cs" />
     <Compile Include="Models\DirectoryItem.cs" />
     <Compile Include="Models\FileItem.cs" />
     <Compile Include="Models\Item.cs" />

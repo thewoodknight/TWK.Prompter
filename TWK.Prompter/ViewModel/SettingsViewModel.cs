@@ -1,4 +1,5 @@
 ﻿using Stylet;
+using TWK.Prompter.Events;
 
 namespace TWK.Prompter.ViewModel
 {
@@ -20,7 +21,18 @@ namespace TWK.Prompter.ViewModel
 
         public void ChangePath()
         {
-          //Open file path here
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+
+                if (result != System.Windows.Forms.DialogResult.OK)
+                    return;
+
+                Settings.ScriptFolder = dialog.SelectedPath;
+                eventAggregator.Publish(new ScriptFolderChangedEvent());
+            }
+
+            
         }
     }
 }

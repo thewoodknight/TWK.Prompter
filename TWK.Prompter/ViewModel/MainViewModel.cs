@@ -8,11 +8,12 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using PropertyChanged;
 using Stylet;
+using TWK.Prompter.Events;
 using TWK.Prompter.Models;
 
 namespace TWK.Prompter.ViewModel
 {
-    public class MainViewModel : Screen
+    public class MainViewModel : Screen, IHandle<ScriptFolderChangedEvent>
     {
         public string Text { get; set; }
         public ObservableCollection<Item> Files { get; set; }
@@ -31,6 +32,13 @@ namespace TWK.Prompter.ViewModel
             this.Settings.Scale = 2;
             this.settingsViewModel = settingsViewModel;
 
+            Files = new ObservableCollection<Item>(GetItems(Settings.ScriptFolder));
+
+            eventAggregator.Subscribe(this);
+        }
+
+        public void Handle(ScriptFolderChangedEvent m)
+        {
             Files = new ObservableCollection<Item>(GetItems(Settings.ScriptFolder));
         }
 
