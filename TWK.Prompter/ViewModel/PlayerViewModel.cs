@@ -30,6 +30,13 @@ namespace TWK.Prompter.ViewModel
 
         }
 
+        protected override void OnClose()
+        {
+            base.OnClose();
+
+            hotkeyservice.UnregisterAllHotkeys();
+        }
+
         // Can't just change the key values without clearing out the old one.
         /*
          ie, PlayPauseKey = Key.Space without first removing the old value wouldn't work
@@ -49,17 +56,51 @@ namespace TWK.Prompter.ViewModel
             if (Settings.SpeedUpKey != null)
                 hotkeyservice.RegisterHotkey(Settings.SpeedUpKey, () => Faster());
 
+            if (Settings.ScrollUpKey != null)
+                hotkeyservice.RegisterHotkey(Settings.ScrollUpKey, () => Faster());
+
+            if (Settings.ScrollDownKey != null)
+                hotkeyservice.RegisterHotkey(Settings.ScrollDownKey, () => Faster());
+
+            if (Settings.PlayPauseKey != null)
+                hotkeyservice.RegisterHotkey(Settings.PlayPauseKey, () => PlayPause());
         }
 
         public void MirrorFlip()
         {
             var x = (Settings.Mirror == -1) ? Settings.Mirror = 1 : Settings.Mirror = -1;
         }
-        public void Smaller() { Settings.Scale -= 0.5; }
-        public void Larger() { Settings.Scale += 0.5; }
+        public void Smaller()
+        {
+            //eventAggregator.Publish(new ChangeMadeEvent());
+            Settings.Scale -= 0.5;
+        }
+        public void Larger()
+        {
+            //eventAggregator.Publish(new ChangeMadeEvent());
+            Settings.Scale += 0.5;
+        }
 
-        public void Slower() { Settings.ScrollSpeed -= 10; }
-        public void Faster() { Settings.ScrollSpeed += 10; }
+        public void Slower()
+        {
+            eventAggregator.Publish(new ChangeMadeEvent());
+            Settings.ScrollSpeed -= 10;
+        }
+        public void Faster()
+        {
+            eventAggregator.Publish(new ChangeMadeEvent());
+            Settings.ScrollSpeed += 10;
+        }
+
+        public void ScrollUp()
+        {
+            //TODO
+        }
+
+        public void ScrollDown()
+        {
+            //TODO
+        }
 
         public void PlayPause()
         {

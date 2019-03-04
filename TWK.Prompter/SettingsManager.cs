@@ -5,6 +5,7 @@ using System.Windows.Input;
 using TWK.HotkeyControl;
 using Newtonsoft.Json;
 using System.IO;
+using TWK.Prompter.Models;
 
 namespace TWK.Prompter
 {
@@ -74,6 +75,37 @@ namespace TWK.Prompter
                 Save();
             }
         }
+
+        public Hotkey ScrollUpKey
+        {
+            get { return settings.ScrollUpKey; }
+            set
+            {
+                settings.ScrollUpKey = value;
+                Save();
+            }
+        }
+
+        public Hotkey ScrollDownKey
+        {
+            get { return settings.ScrollDownKey; }
+            set
+            {
+                settings.ScrollDownKey = value;
+                Save();
+            }
+        }
+
+        public Hotkey PlayPauseKey
+        {
+            get { return settings.PlayPauseKey; }
+            set
+            {
+                settings.PlayPauseKey = value;
+                Save();
+            }
+        }
+
         public double Scale { get; set; }
        
 

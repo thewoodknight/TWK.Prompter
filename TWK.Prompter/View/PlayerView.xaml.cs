@@ -9,7 +9,7 @@ using TWK.Prompter.ViewModel;
 
 namespace TWK.Prompter.View
 {
-    public partial class PlayerView : MetroWindow, IHandle<PlayPauseEvent>
+    public partial class PlayerView : MetroWindow, IHandle<PlayPauseEvent>, IHandle<ChangeMadeEvent>
     {
         private bool fullscreen = false;
         private bool playing = false;
@@ -56,9 +56,13 @@ namespace TWK.Prompter.View
 
             if (m.Playing)
             {
-                Shift(svText, svText.ScrollableHeight);
+                
+                Shift(svText, svText.ScrollableHeight - svText.VerticalOffset);
             }
         }
+
+
+        EventHandler renderHandler = null;
 
         //https://stackoverflow.com/questions/17930481/programmatically-scrolling-a-scrollviewer-with-a-timer-becomes-jerky
         private void Shift(ScrollViewer target, double distance = 20)
@@ -78,10 +82,12 @@ namespace TWK.Prompter.View
                 distance = target.ScrollableHeight - target.VerticalOffset;
             }
 
-            double animationTime = distance / pvm.Settings.ScrollSpeed;
+            double scrollspeed = pvm.Settings.ScrollSpeed;
+            double animationTime = distance / scrollspeed;
+            
             DateTime startTime = DateTime.Now;
 
-            EventHandler renderHandler = null;
+            
             renderHandler = (sender, args) =>
             {
                 double elapsed = (DateTime.Now - startTime).TotalSeconds;
@@ -93,12 +99,20 @@ namespace TWK.Prompter.View
                 }
 
                 if (playing)
-                    target.ScrollToVerticalOffset(startOffset + (elapsed * pvm.Settings.ScrollSpeed));
+                    target.ScrollToVerticalOffset(startOffset + (elapsed * scrollspeed));
+                
 
             };
 
             CompositionTarget.Rendering += renderHandler;
         }
 
+        public void Handle(ChangeMadeEvent message)
+        {
+            playing = false;
+            CompositionTarget.Rendering -= renderHandler;
+            playing = true;
+            Shift(svText, svText.ScrollableHeight - svText.VerticalOffset);
+        }
     }
 }
