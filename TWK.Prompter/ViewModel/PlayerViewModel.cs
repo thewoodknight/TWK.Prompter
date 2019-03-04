@@ -57,10 +57,10 @@ namespace TWK.Prompter.ViewModel
                 hotkeyservice.RegisterHotkey(Settings.SpeedUpKey, () => Faster());
 
             if (Settings.ScrollUpKey != null)
-                hotkeyservice.RegisterHotkey(Settings.ScrollUpKey, () => Faster());
+                hotkeyservice.RegisterHotkey(Settings.ScrollUpKey, () => ScrollUp());
 
             if (Settings.ScrollDownKey != null)
-                hotkeyservice.RegisterHotkey(Settings.ScrollDownKey, () => Faster());
+                hotkeyservice.RegisterHotkey(Settings.ScrollDownKey, () => ScrollDown());
 
             if (Settings.PlayPauseKey != null)
                 hotkeyservice.RegisterHotkey(Settings.PlayPauseKey, () => PlayPause());
@@ -83,23 +83,23 @@ namespace TWK.Prompter.ViewModel
 
         public void Slower()
         {
-            eventAggregator.Publish(new ChangeMadeEvent());
+            eventAggregator.Publish(new ChangeMadeEvent(ChangeMadeEnum.Slower));
             Settings.ScrollSpeed -= 10;
         }
         public void Faster()
         {
-            eventAggregator.Publish(new ChangeMadeEvent());
+            eventAggregator.Publish(new ChangeMadeEvent(ChangeMadeEnum.Faster));
             Settings.ScrollSpeed += 10;
         }
 
         public void ScrollUp()
         {
-            //TODO
+            eventAggregator.Publish(new ChangeMadeEvent(ChangeMadeEnum.ScrollUp));
         }
 
         public void ScrollDown()
         {
-            //TODO
+            eventAggregator.Publish(new ChangeMadeEvent(ChangeMadeEnum.ScrollDown));
         }
 
         public void PlayPause()

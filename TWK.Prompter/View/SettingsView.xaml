@@ -14,11 +14,14 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="223"/>
+                <ColumnDefinition Width="303"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -29,6 +32,9 @@
             <Label Grid.Column="0"  Grid.Row="1" Margin="0,0,5,5">Speed Down</Label>
             <Label  Grid.Column="0"  Grid.Row="2" Margin="0,0,5,5">Size Up</Label>
             <Label  Grid.Column="0"  Grid.Row="3" Margin="0,0,5,5">Size Down</Label>
+            <Label  Grid.Column="0"  Grid.Row="4" Margin="0,0,5,5">Scroll Up</Label>
+            <Label  Grid.Column="0"  Grid.Row="5" Margin="0,0,5,5">Scroll Down</Label>
+            <Label  Grid.Column="0"  Grid.Row="6" Margin="0,0,5,5">Play/Pause</Label>
 
             <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="0"
                                        Width="91"
@@ -57,6 +63,27 @@
                                        VerticalAlignment="Center"
                                        FontSize="12"
                                        Hotkey="{Binding Settings.SmallerKey}" />
+
+            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="4"
+                                       Width="91"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Hotkey="{Binding Settings.ScrollUpKey}" />
+
+            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="5"
+                                       Width="91"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Hotkey="{Binding Settings.ScrollDownKey}" />
+
+            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="6"
+                                       Width="91"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Hotkey="{Binding Settings.PlayPauseKey}" />
 
         </Grid>
         <TextBlock FontWeight="Bold" FontSize="14">Script Folder</TextBlock>

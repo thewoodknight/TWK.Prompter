@@ -2,10 +2,25 @@
 {
     public class ChangeMadeEvent
     {
-        //Should the old/new/type be added?
-        public ChangeMadeEvent()
+        public ChangeMadeEnum ChangeType;
+        public ChangeMadeEvent(ChangeMadeEnum type)
         {
-
+            ChangeType = type;
         }
+
+
+    }
+
+    public enum ChangeMadeEnum
+    {
+        PlayPause,
+        SizeUp,
+        SizeDown,
+        Faster,
+        Slower,
+        Stronger,
+        Better,
+        ScrollUp,
+        ScrollDown
     }
 }

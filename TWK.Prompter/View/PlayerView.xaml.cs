@@ -111,6 +111,21 @@ namespace TWK.Prompter.View
         {
             playing = false;
             CompositionTarget.Rendering -= renderHandler;
+
+            switch (message.ChangeType)
+            {
+                case ChangeMadeEnum.ScrollUp:
+                    svText.ScrollToVerticalOffset(svText.VerticalOffset - 100);
+                    svText.UpdateLayout();
+                    break;
+
+                case ChangeMadeEnum.ScrollDown:
+                    svText.ScrollToVerticalOffset(svText.VerticalOffset + 100);
+                    svText.UpdateLayout();
+                    break;
+            }
+            
+
             playing = true;
             Shift(svText, svText.ScrollableHeight - svText.VerticalOffset);
         }
