@@ -46,6 +46,9 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="Play"  Content="{iconPacks:Material PlayPause}" Command="{s:Action PlayPause}" />
             <Button x:Name="FullScreen" Content="{iconPacks:Material FullScreen}" Click="FullScreen_Click" />
+
+            <Button x:Name="SpeedDown" Content="{iconPacks:Material Snowflake}" Click="{s:Action Slower}" />
+            <Button x:Name="SpeedUp" Content="{iconPacks:Material Rabbit}" Click="{s:Action Faster}" />
         </StackPanel>
     </Grid>
 

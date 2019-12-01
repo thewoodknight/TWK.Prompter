@@ -10,7 +10,7 @@
         xmlns:local="clr-namespace:TWK.Prompter.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     SaveWindowPosition="True"
-        Title="TWK.Prompter Editor" Height="557.898" Width="965.021">
+        Title="TWK.Prompter Editor" Height="700" Width="965.021">
 
     <Window.Resources>
 
@@ -30,7 +30,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="270"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -42,9 +42,22 @@
                 <CheckBox Content="Mirror" />
                 <Label Content="Scale" />
                 <Slider Value="{Binding Settings.Scale}" Minimum="1" Maximum="5"></Slider>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="--" Margin="10" Width="40" Height="40" Command="{s:Action ScaleDownLarge}"/>
+                    <Button Content="-" Margin="10" Width="40" Height="40"  Command="{s:Action ScaleDownSmall}"/>
+                    <Button Content="+" Margin="10" Width="40" Height="40"  Command="{s:Action ScaleUpSmall}"/>
+                    <Button Content="++" Margin="10" Width="40" Height="40" Command="{s:Action ScaleUpLarge}"/>
+                </StackPanel>
+                
                 <Label Content="Playback Speed" />
-                <Slider Value="{Binding Settings.ScrollSpeed}" Minimum="10" Maximum="100"></Slider>
-                <Button  Command="{s:Action Play}" Content="Play" />
+                <Slider Value="{Binding Settings.ScrollSpeed}" Minimum="10" Maximum="100" ></Slider>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="--" Margin="10" Width="40" Height="40" Command="{s:Action SpeedDownLarge}"/>
+                    <Button Content="-" Margin="10" Width="40" Height="40"  Command="{s:Action SpeedDownSmall}"/>
+                    <Button Content="+" Margin="10" Width="40" Height="40"  Command="{s:Action SpeedUpSmall}"/>
+                    <Button Content="++" Margin="10" Width="40" Height="40" Command="{s:Action SpeedUpLarge}"/>
+                </StackPanel>
+                <Button  Command="{s:Action Play}" Content="Play" Margin="0,10,0,0" />
                 <Button Command="{s:Action ShowSettings}" Content="Settings" />
             </StackPanel>
         </StackPanel>

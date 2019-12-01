@@ -94,5 +94,17 @@ namespace TWK.Prompter.ViewModel
         {
             windowManager.ShowDialog(settingsViewModel);
         }
+
+        public void SpeedDownLarge()  { Settings.ScrollSpeed -= 10; }
+        public void SpeedDownSmall() { Settings.ScrollSpeed -= 1; }
+        public void SpeedUpLarge() { Settings.ScrollSpeed += 10; }
+        public void SpeedUpSmall() { Settings.ScrollSpeed += 1; }
+
+
+
+        public void ScaleDownLarge() { Settings.Scale -= 1; }
+        public void ScaleDownSmall() { Settings.Scale -= .1; }
+        public void ScaleUpLarge() { Settings.Scale += 1; }
+        public void ScaleUpSmall() { Settings.Scale += .1; }
     }
 }
