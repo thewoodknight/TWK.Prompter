@@ -4,13 +4,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-          xmlns:s="https://github.com/canton7/Stylet"
-         xmlns:Model="clr-namespace:TWK.Prompter.Models" 
+        xmlns:s="https://github.com/canton7/Stylet"
+        xmlns:Model="clr-namespace:TWK.Prompter.Models" 
         mc:Ignorable="d"
         xmlns:local="clr-namespace:TWK.Prompter.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    SaveWindowPosition="True"
-        Title="TWK.Prompter Editor" Height="800" Width="965.021">
+
+        SaveWindowPosition="True"
+        Title="TWK Prompter" 
+        Height="700" 
+        Width="965"
+        Icon="/TWK.Prompter;component/logo.png">
 
     <Window.Resources>
 
@@ -21,16 +25,14 @@
         <DataTemplate DataType="{x:Type Model:FileItem}">
             <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
         </DataTemplate>
-
         
-            <local:RenderScaleConverter x:Key="RenderScaleConverter" />
-
+        <local:RenderScaleConverter x:Key="RenderScaleConverter" />
 
     </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="270"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -42,11 +44,27 @@
                 <CheckBox Content="Mirror" />
                 <Label Content="Scale" />
                 <Slider Value="{Binding Settings.Scale}" Minimum="1" Maximum="5"></Slider>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="--" Margin="10" Width="40" Height="40" Command="{s:Action ScaleDownLarge}"/>
+                    <Button Content="-" Margin="10" Width="40" Height="40"  Command="{s:Action ScaleDownSmall}"/>
+                    <Button Content="+" Margin="10" Width="40" Height="40"  Command="{s:Action ScaleUpSmall}"/>
+                    <Button Content="++" Margin="10" Width="40" Height="40" Command="{s:Action ScaleUpLarge}"/>
+                </StackPanel>
+                
                 <Label Content="Playback Speed" />
                 <Slider Value="{Binding Settings.ScrollSpeed}" Minimum="10" Maximum="100"></Slider>
                 <Button  Command="{s:Action Play}" Content="Play" Margin="5" />
                 <Button  Command="{s:Action ManualPlay}" Content="Manual Play" Margin="5" />
                 <Button Command="{s:Action ShowSettings}" Content="Settings" Margin="5" />
+                <Slider Value="{Binding Settings.ScrollSpeed}" Minimum="10" Maximum="100" ></Slider>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="--" Margin="10" Width="40" Height="40" Command="{s:Action SpeedDownLarge}"/>
+                    <Button Content="-" Margin="10" Width="40" Height="40"  Command="{s:Action SpeedDownSmall}"/>
+                    <Button Content="+" Margin="10" Width="40" Height="40"  Command="{s:Action SpeedUpSmall}"/>
+                    <Button Content="++" Margin="10" Width="40" Height="40" Command="{s:Action SpeedUpLarge}"/>
+                </StackPanel>
+                <Button  Command="{s:Action Play}" Content="Play" Margin="0,10,0,0" />
+                <Button Command="{s:Action ShowSettings}" Content="Settings" />
             </StackPanel>
         </StackPanel>
 
