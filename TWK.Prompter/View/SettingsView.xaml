@@ -6,8 +6,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:s="https://github.com/canton7/Stylet"
         mc:Ignorable="d"
+    Icon="/TWK.Prompter;component/logo.png"
         xmlns:hotkey="clr-namespace:TWK.HotkeyControl;assembly=TWK.HotkeyControl"
-        Title="TWK.Prompter Settings" Height="450" Width="800">
+        Title="TWK Prompter Settings" Height="450" Width="800">
 
     <StackPanel Margin="10">
         <TextBlock FontWeight="Bold" FontSize="14">ShortCut Keys</TextBlock>

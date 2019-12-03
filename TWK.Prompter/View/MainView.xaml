@@ -4,13 +4,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-          xmlns:s="https://github.com/canton7/Stylet"
-         xmlns:Model="clr-namespace:TWK.Prompter.Models" 
+        xmlns:s="https://github.com/canton7/Stylet"
+        xmlns:Model="clr-namespace:TWK.Prompter.Models" 
         mc:Ignorable="d"
         xmlns:local="clr-namespace:TWK.Prompter.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    SaveWindowPosition="True"
-        Title="TWK.Prompter Editor" Height="700" Width="965.021">
+        SaveWindowPosition="True"
+        Title="TWK Prompter" 
+        Height="700" 
+        Width="965"
+        Icon="/TWK.Prompter;component/logo.png">
 
     <Window.Resources>
 
@@ -21,10 +24,8 @@
         <DataTemplate DataType="{x:Type Model:FileItem}">
             <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
         </DataTemplate>
-
         
-            <local:RenderScaleConverter x:Key="RenderScaleConverter" />
-
+        <local:RenderScaleConverter x:Key="RenderScaleConverter" />
 
     </Window.Resources>
 

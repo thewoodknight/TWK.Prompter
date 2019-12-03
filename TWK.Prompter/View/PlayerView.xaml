@@ -11,7 +11,8 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:TWK.Prompter.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="TWK.Prompter Player" Height="450" Width="800"     SaveWindowPosition="True">
+    Icon="/TWK.Prompter;component/logo.png"
+        Title="TWK Prompter" Height="450" Width="800"     SaveWindowPosition="True">
 
     <Window.Resources>
         <local:RenderScaleConverter x:Key="RenderScaleConverter" />
