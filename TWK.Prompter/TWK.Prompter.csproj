@@ -108,6 +108,7 @@
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\RenderScaleConverter.cs" />
+    <Compile Include="Events\ChangeMadeEnum.cs" />
     <Compile Include="Events\ChangeMadeEvent.cs" />
     <Compile Include="Events\PlayPauseEvent.cs" />
     <Compile Include="Events\ScriptFolderChangedEvent.cs" />
@@ -118,10 +119,14 @@
     <Compile Include="Models\Settings.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ManualPlayerViewModel.cs" />
     <Compile Include="ViewModel\PlayerViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ManualPlayerView.xaml.cs">
+      <DependentUpon>ManualPlayerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
@@ -137,6 +142,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ManualPlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

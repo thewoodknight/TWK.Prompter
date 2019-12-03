@@ -10,7 +10,7 @@
         xmlns:local="clr-namespace:TWK.Prompter.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     SaveWindowPosition="True"
-        Title="TWK.Prompter Editor" Height="557.898" Width="965.021">
+        Title="TWK.Prompter Editor" Height="800" Width="965.021">
 
     <Window.Resources>
 
@@ -44,8 +44,9 @@
                 <Slider Value="{Binding Settings.Scale}" Minimum="1" Maximum="5"></Slider>
                 <Label Content="Playback Speed" />
                 <Slider Value="{Binding Settings.ScrollSpeed}" Minimum="10" Maximum="100"></Slider>
-                <Button  Command="{s:Action Play}" Content="Play" />
-                <Button Command="{s:Action ShowSettings}" Content="Settings" />
+                <Button  Command="{s:Action Play}" Content="Play" Margin="5" />
+                <Button  Command="{s:Action ManualPlay}" Content="Manual Play" Margin="5" />
+                <Button Command="{s:Action ShowSettings}" Content="Settings" Margin="5" />
             </StackPanel>
         </StackPanel>
 

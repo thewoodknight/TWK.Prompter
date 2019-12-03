@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using PropertyChanged;
 using Stylet;
 using TWK.Prompter.Events;
 using TWK.Prompter.Models;
@@ -79,14 +76,26 @@ namespace TWK.Prompter.ViewModel
         {
             var item = (Item)((TreeView)sender).SelectedItem;//This is gross, but TreeView doesnt' have a bindable SelectedItem
             if (item != null)
-                Text = File.ReadAllText(item.Path);
-
+            {
+                using (var fileStream = new FileStream(item.Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (var textReader = new StreamReader(fileStream))
+                {
+                    Text = textReader.ReadToEnd();
+                }
+            }
         }
 
         public void Play()
         {
             //more params like speed, mirror, scale should be passed in?
             var viewModel = new PlayerViewModel(eventAggregator, Settings, Text);
+            windowManager.ShowWindow(viewModel);
+        }
+
+        public void ManualPlay()
+        {
+            //more params like speed, mirror, scale should be passed in?
+            var viewModel = new ManualPlayerViewModel(eventAggregator, Settings, Text);
             windowManager.ShowWindow(viewModel);
         }
 

@@ -18,11 +18,14 @@ namespace TWK.Prompter
         {
             return new Settings()
             {
-                ScriptFolder =  @"C:\Users\paul\OneDrive\scripts",
+                ScriptFolder =  @"",
                 Mirror = -1,
                 Scale = 1,
             };
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public SettingsManager()
         {
             if (!File.Exists(settingsFile))
@@ -139,8 +142,6 @@ namespace TWK.Prompter
             }
         }
        
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private void Save()
         {
             File.WriteAllText(settingsFile, JsonConvert.SerializeObject(settings));
