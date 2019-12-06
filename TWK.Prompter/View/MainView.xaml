@@ -41,7 +41,7 @@
             <TreeView  x:Name="tv" ItemsSource="{Binding Files}" MouseDoubleClick="{s:Action LoadFile}" Height="300" BorderBrush="{x:Null}" Margin="5,0,0,0" />
             <TextBlock HorizontalAlignment="Left" Text="Playback" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
             <StackPanel Margin="5,0,0,0">
-                <CheckBox Content="Mirror" />
+                <CheckBox Content="Mirror" IsChecked="{Binding Settings.Mirror}" />
                 <Label Content="Scale" />
                 <Slider Value="{Binding Settings.Scale}" Minimum="1" Maximum="5"></Slider>
                 <StackPanel Orientation="Horizontal">

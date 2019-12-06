@@ -110,6 +110,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Converters\MirrorConverter.cs" />
     <Compile Include="Converters\RenderScaleConverter.cs" />
     <Compile Include="Events\ChangeMadeEnum.cs" />
     <Compile Include="Events\ChangeMadeEvent.cs" />

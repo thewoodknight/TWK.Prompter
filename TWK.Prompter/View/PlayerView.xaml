@@ -6,15 +6,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:s="https://github.com/canton7/Stylet"
         mc:Ignorable="d"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:wi="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:TWK.Prompter.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    Icon="/TWK.Prompter;component/logo.png"
+        Icon="/TWK.Prompter;component/logo.png"
         Title="TWK Prompter" Height="450" Width="800"     SaveWindowPosition="True">
 
     <Window.Resources>
+        <local:MirrorConverter x:Key="MirrorConverter" />
         <local:RenderScaleConverter x:Key="RenderScaleConverter" />
         
         <!-- This removes the need to have it on every single button in this window -->
@@ -39,7 +38,7 @@
                     <ScaleTransform ScaleX="{Binding Settings.Scale}" ScaleY="{Binding Settings.Scale}"/>
                 </xctk:RichTextBox.LayoutTransform>
                 <xctk:RichTextBox.RenderTransform>
-                    <ScaleTransform ScaleX="{Binding Settings.Mirror}" />
+                    <ScaleTransform ScaleX="{Binding Settings.Mirror, Converter={StaticResource MirrorConverter}}" />
                 </xctk:RichTextBox.RenderTransform>
             </xctk:RichTextBox>
         </ScrollViewer>
