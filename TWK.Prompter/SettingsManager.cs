@@ -18,7 +18,7 @@ namespace TWK.Prompter
         {
             return new Settings()
             {
-                ScriptFolder =  @"",
+                ScriptFolder = @"",
                 Mirror = -1,
                 Scale = 1,
             };
@@ -109,8 +109,15 @@ namespace TWK.Prompter
             }
         }
 
-        public double Scale { get; set; }
-       
+        public double Scale
+        {
+            get { return settings.Scale; }
+            set
+            {
+                settings.Scale = value;
+                Save();
+            }
+        }
 
         public int Mirror
         {
@@ -141,7 +148,7 @@ namespace TWK.Prompter
                 Save();
             }
         }
-       
+
         private void Save()
         {
             File.WriteAllText(settingsFile, JsonConvert.SerializeObject(settings));

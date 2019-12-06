@@ -26,7 +26,6 @@ namespace TWK.Prompter.ViewModel
             this.windowManager = windowManager;
             this.eventAggregator = eventAggregator;
             this.Settings = Settings;
-            this.Settings.Scale = 2;
             this.settingsViewModel = settingsViewModel;
 
             Files = new ObservableCollection<Item>(GetItems(Settings.ScriptFolder));
