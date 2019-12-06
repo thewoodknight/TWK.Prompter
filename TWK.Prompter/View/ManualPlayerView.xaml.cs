@@ -80,6 +80,16 @@ namespace TWK.Prompter.View
                     svText.ScrollToVerticalOffset(svText.VerticalOffset + 100);
                     svText.UpdateLayout();
                     break;
+
+                case ChangeMadeEnum.PageUp:
+                    svText.PageUp();
+                    svText.UpdateLayout();
+                    break;
+
+                case ChangeMadeEnum.PageDown:
+                    svText.PageDown();
+                    svText.UpdateLayout();
+                    break;
             }
 
         }

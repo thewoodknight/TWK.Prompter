@@ -111,6 +111,7 @@ namespace TWK.Prompter.View
         {
             playing = false;
             CompositionTarget.Rendering -= renderHandler;
+            renderHandler = null;
 
             switch (message.ChangeType)
             {

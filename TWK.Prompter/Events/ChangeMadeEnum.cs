@@ -10,6 +10,8 @@
         Stronger,
         Better,
         ScrollUp,
-        ScrollDown
+        ScrollDown,
+        PageUp,
+        PageDown
     }
 }
