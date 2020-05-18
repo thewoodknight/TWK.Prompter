@@ -12,7 +12,8 @@
 
         SaveWindowPosition="True"
         Title="TWK Prompter" 
-        MinHeight="800" 
+        MinHeight="750" 
+    Height="750"
         Width="965"
         Icon="/TWK.Prompter;component/logo.png">
 
@@ -43,7 +44,7 @@
             <StackPanel Margin="5,0,0,0">
                 <CheckBox Content="Mirror" IsChecked="{Binding Settings.Mirror}" />
                 <Label Content="Scale" />
-                <Slider Value="{Binding Settings.Scale}" Minimum="1" Maximum="5"></Slider>
+                <Slider Value="{Binding Settings.Scale}" Minimum="1" Maximum="10"></Slider>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="--" Margin="10" Width="40" Height="40" Command="{s:Action ScaleDownLarge}"/>
                     <Button Content="-" Margin="10" Width="40" Height="40"  Command="{s:Action ScaleDownSmall}"/>
@@ -51,16 +52,6 @@
                     <Button Content="++" Margin="10" Width="40" Height="40" Command="{s:Action ScaleUpLarge}"/>
                 </StackPanel>
                 
-                <Label Content="Playback Speed" />
-                <Slider Value="{Binding Settings.ScrollSpeed}" Minimum="10" Maximum="100"></Slider>
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="--" Margin="10" Width="40" Height="40" Command="{s:Action SpeedDownLarge}"/>
-                    <Button Content="-" Margin="10" Width="40" Height="40"  Command="{s:Action SpeedDownSmall}"/>
-                    <Button Content="+" Margin="10" Width="40" Height="40"  Command="{s:Action SpeedUpSmall}"/>
-                    <Button Content="++" Margin="10" Width="40" Height="40" Command="{s:Action SpeedUpLarge}"/>
-                </StackPanel>
-                
-                <Button  Command="{s:Action Play}" Content="Play" Margin="5" />
                 <Button  Command="{s:Action ManualPlay}" Content="Manual Play" Margin="5" />
                 <Button Command="{s:Action ShowSettings}" Content="Settings" Margin="5" />
             </StackPanel>

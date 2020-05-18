@@ -55,14 +55,6 @@ namespace TWK.Prompter.ViewModel
             if (Settings.ScrollDownKey != null)
                 hotkeyservice.RegisterHotkey(Settings.ScrollDownKey, () => ScrollDown());
 
-            //Page Down
-            if (Settings.SpeedDownKey != null)
-                hotkeyservice.RegisterHotkey(Settings.SpeedDownKey, () => PageDown());
-
-
-            //PageUp
-            if (Settings.SpeedUpKey != null)
-                hotkeyservice.RegisterHotkey(Settings.SpeedUpKey, () => PageUp());
         }
 
         public void MirrorFlip()

@@ -29,13 +29,12 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0" Margin="0,0,5,5">Speed Up</Label>
-            <Label Grid.Column="0"  Grid.Row="1" Margin="0,0,5,5">Speed Down</Label>
+            <Label Grid.Column="0" Grid.Row="0" Margin="0,0,5,5" Content="Page Up"/>
+            <Label Grid.Column="0"  Grid.Row="1" Margin="0,0,5,5" Content="Page Down"/>
             <Label  Grid.Column="0"  Grid.Row="2" Margin="0,0,5,5">Size Up</Label>
             <Label  Grid.Column="0"  Grid.Row="3" Margin="0,0,5,5">Size Down</Label>
             <Label  Grid.Column="0"  Grid.Row="4" Margin="0,0,5,5">Scroll Up</Label>
             <Label  Grid.Column="0"  Grid.Row="5" Margin="0,0,5,5">Scroll Down</Label>
-            <Label  Grid.Column="0"  Grid.Row="6" Margin="0,0,5,5">Play/Pause</Label>
 
             <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="0"
                                        Width="91"
@@ -79,16 +78,16 @@
                                        FontSize="12"
                                        Hotkey="{Binding Settings.ScrollDownKey}" />
 
-            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="6"
-                                       Width="91"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"
-                                       FontSize="12"
-                                       Hotkey="{Binding Settings.PlayPauseKey}" />
-
         </Grid>
-        <TextBlock FontWeight="Bold" FontSize="14">Script Folder</TextBlock>
-        <TextBox Text="{Binding Settings.ScriptFolder}" />
-        <Button Content="Change" Command="{s:Action ChangePath}" />
+        <TextBlock Margin="0,10,0,0" FontWeight="Bold" FontSize="14">Script Folder</TextBlock>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding Settings.ScriptFolder}" Grid.Column="0" Margin="0,0,10,0"/>
+            <Button Content="Change" Command="{s:Action ChangePath}" Grid.Column="1" />
+        </Grid>
+        
     </StackPanel>
 </controls:MetroWindow>

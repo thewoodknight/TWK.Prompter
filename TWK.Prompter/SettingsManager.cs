@@ -35,30 +35,7 @@ namespace TWK.Prompter
 
         }
 
-        public Hotkey SpeedUpKey
-        {
-            get
-            {
-                return settings.SpeedUpKey;
-            }
-            set
-            {
-                settings.SpeedUpKey = value;
-                Save();
-            }
-        }
-
-        public Hotkey SpeedDownKey
-        {
-            get { return settings.SpeedDownKey; }
-            set
-            {
-                settings.SpeedDownKey = value;
-                Save();
-            }
-        }
-
-
+      
         public Hotkey BiggerKey
         {
             get { return settings.BiggerKey; }
@@ -99,16 +76,6 @@ namespace TWK.Prompter
             }
         }
 
-        public Hotkey PlayPauseKey
-        {
-            get { return settings.PlayPauseKey; }
-            set
-            {
-                settings.PlayPauseKey = value;
-                Save();
-            }
-        }
-
         public double Scale
         {
             get { return settings.Scale; }
@@ -139,15 +106,6 @@ namespace TWK.Prompter
             }
         }
 
-        public double ScrollSpeed
-        {
-            get { return settings.ScrollSpeed; }
-            set
-            {
-                settings.ScrollSpeed = value;
-                Save();
-            }
-        }
 
         private void Save()
         {

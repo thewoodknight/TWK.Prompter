@@ -84,13 +84,6 @@ namespace TWK.Prompter.ViewModel
             }
         }
 
-        public void Play()
-        {
-            //more params like speed, mirror, scale should be passed in?
-            var viewModel = new PlayerViewModel(eventAggregator, Settings, Text);
-            windowManager.ShowWindow(viewModel);
-        }
-
         public void ManualPlay()
         {
             //more params like speed, mirror, scale should be passed in?
@@ -102,13 +95,6 @@ namespace TWK.Prompter.ViewModel
         {
             windowManager.ShowDialog(settingsViewModel);
         }
-
-        public void SpeedDownLarge()  { Settings.ScrollSpeed -= 10; }
-        public void SpeedDownSmall() { Settings.ScrollSpeed -= 1; }
-        public void SpeedUpLarge() { Settings.ScrollSpeed += 10; }
-        public void SpeedUpSmall() { Settings.ScrollSpeed += 1; }
-
-
 
         public void ScaleDownLarge() { Settings.Scale -= 1; }
         public void ScaleDownSmall() { Settings.Scale -= .1; }

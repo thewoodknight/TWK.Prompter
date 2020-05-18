@@ -1,26 +1,12 @@
 ﻿using MahApps.Metro.Controls;
 using Stylet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TWK.Prompter.Events;
 using TWK.Prompter.ViewModel;
 
 namespace TWK.Prompter.View
 {
-    /// <summary>
-    /// Interaction logic for ManualPlayerView.xaml
-    /// </summary>
     public partial class ManualPlayerView : MetroWindow, IHandle<ChangeMadeEvent>
     {
         private bool fullscreen = false;
@@ -60,11 +46,6 @@ namespace TWK.Prompter.View
             }
 
             fullscreen = !fullscreen;
-        }
-
-        public void Shift(ScrollViewer target, double distance = 20)
-        {
-
         }
 
         public void Handle(ChangeMadeEvent message)
