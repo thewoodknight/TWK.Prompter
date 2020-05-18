@@ -31,8 +31,6 @@
 
             <Label Grid.Column="0" Grid.Row="0" Margin="0,0,5,5" Content="Page Up"/>
             <Label Grid.Column="0"  Grid.Row="1" Margin="0,0,5,5" Content="Page Down"/>
-            <Label  Grid.Column="0"  Grid.Row="2" Margin="0,0,5,5">Size Up</Label>
-            <Label  Grid.Column="0"  Grid.Row="3" Margin="0,0,5,5">Size Down</Label>
             <Label  Grid.Column="0"  Grid.Row="4" Margin="0,0,5,5">Scroll Up</Label>
             <Label  Grid.Column="0"  Grid.Row="5" Margin="0,0,5,5">Scroll Down</Label>
 
@@ -49,20 +47,6 @@
                                        VerticalAlignment="Center"
                                        FontSize="12"
                                        Hotkey="{Binding Settings.PageDownKey}" />
-
-            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="2"
-                                       Width="91"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"
-                                       FontSize="12"
-                                       Hotkey="{Binding Settings.BiggerKey}"  />
-
-            <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="3"
-                                       Width="91"
-                                       HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"
-                                       FontSize="12"
-                                       Hotkey="{Binding Settings.SmallerKey}" />
 
             <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="4"
                                        Width="91"
@@ -88,6 +72,6 @@
             <TextBox Text="{Binding Settings.ScriptFolder}" Grid.Column="0" Margin="0,0,10,0"/>
             <Button Content="Change" Command="{s:Action ChangePath}" Grid.Column="1" />
         </Grid>
-        
+
     </StackPanel>
 </controls:MetroWindow>
