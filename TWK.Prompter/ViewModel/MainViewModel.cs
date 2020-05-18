@@ -88,7 +88,7 @@ namespace TWK.Prompter.ViewModel
         {
             //more params like speed, mirror, scale should be passed in?
             var viewModel = new ManualPlayerViewModel(eventAggregator, Settings, Text);
-            windowManager.ShowWindow(viewModel);
+            windowManager.ShowDialog(viewModel);
         }
 
         public void ShowSettings()

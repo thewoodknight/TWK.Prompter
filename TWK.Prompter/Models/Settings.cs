@@ -4,8 +4,8 @@ namespace TWK.Prompter.Models
 {
     public class Settings
     {
-        public Hotkey BiggerKey;
-        public Hotkey SmallerKey;
+        public Hotkey PageUpKey;
+        public Hotkey PageDownKey;
 
         public Hotkey ScrollUpKey;
         public Hotkey ScrollDownKey;

@@ -41,14 +41,14 @@
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Center"
                                        FontSize="12"
-                                       Hotkey="{Binding Settings.SpeedUpKey}" />
+                                       Hotkey="{Binding Settings.PageUpKey}" />
 
             <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="1"
                                        Width="91"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Center"
                                        FontSize="12"
-                                       Hotkey="{Binding Settings.SpeedDownKey}" />
+                                       Hotkey="{Binding Settings.PageDownKey}" />
 
             <hotkey:HotkeyEditorControl Grid.Column="1" Grid.Row="2"
                                        Width="91"

@@ -18,6 +18,12 @@ namespace TWK.Prompter.View
 
             //I'm not sure I love this approach, but it works
             eventAggregator.Subscribe(this);
+            Loaded += ManualPlayerView_Loaded;
+        }
+
+        private void ManualPlayerView_Loaded(object sender, RoutedEventArgs e)
+        {
+            FullScreen_Click(null, null);
         }
 
         private void FullScreen_Click(object sender, RoutedEventArgs e)
@@ -27,7 +33,7 @@ namespace TWK.Prompter.View
                 IgnoreTaskbarOnMaximize = true;
                 ShowMaxRestoreButton = false;
                 ShowMinButton = false;
-                ShowTitleBar = false;
+              //  ShowTitleBar = false;
                 WindowStyle = WindowStyle.None;
                 ResizeMode = ResizeMode.NoResize;
 
@@ -62,13 +68,17 @@ namespace TWK.Prompter.View
                     svText.UpdateLayout();
                     break;
 
+
+                // .PageUp() and .PageDown() can't be controlled, but ScrollToVerticalOffset() can have a value passed in, therefore manipulated so it doesn't do a full page down
                 case ChangeMadeEnum.PageUp:
-                    svText.PageUp();
+                    svText.ScrollToVerticalOffset((svText.VerticalOffset - svText.ActualHeight) - 100);
                     svText.UpdateLayout();
                     break;
 
                 case ChangeMadeEnum.PageDown:
-                    svText.PageDown();
+                    svText.ScrollToVerticalOffset((svText.VerticalOffset + svText.ActualHeight) - 100);
+                    
+                    //svText.PageDown();
                     svText.UpdateLayout();
                     break;
             }

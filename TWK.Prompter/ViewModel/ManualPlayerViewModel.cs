@@ -43,11 +43,11 @@ namespace TWK.Prompter.ViewModel
         */
         private void InitShortcuts()
         {
-            if (Settings.BiggerKey != null)
-                hotkeyservice.RegisterHotkey(Settings.BiggerKey, () => Larger());
+            if (Settings.PageUpKey != null)
+                hotkeyservice.RegisterHotkey(Settings.PageUpKey, () => PageUp());
 
-            if (Settings.SmallerKey != null)
-                hotkeyservice.RegisterHotkey(Settings.SmallerKey, () => Smaller());
+            if (Settings.PageDownKey != null)
+                hotkeyservice.RegisterHotkey(Settings.PageDownKey, () => PageDown());
 
             if (Settings.ScrollUpKey != null)
                 hotkeyservice.RegisterHotkey(Settings.ScrollUpKey, () => ScrollUp());
@@ -60,17 +60,6 @@ namespace TWK.Prompter.ViewModel
         public void MirrorFlip()
         {
             var x = (Settings.Mirror == -1) ? Settings.Mirror = 1 : Settings.Mirror = -1;
-        }
-
-        public void Smaller()
-        {
-            //eventAggregator.Publish(new ChangeMadeEvent());
-            Settings.Scale -= 0.5;
-        }
-        public void Larger()
-        {
-            //eventAggregator.Publish(new ChangeMadeEvent());
-            Settings.Scale += 0.5;
         }
 
         public void ScrollUp()

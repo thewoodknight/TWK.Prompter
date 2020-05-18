@@ -36,22 +36,22 @@ namespace TWK.Prompter
         }
 
       
-        public Hotkey BiggerKey
+        public Hotkey PageDownKey
         {
-            get { return settings.BiggerKey; }
+            get { return settings.PageDownKey; }
             set
             {
-                settings.BiggerKey = value;
+                settings.PageDownKey = value;
                 Save();
             }
         }
 
-        public Hotkey SmallerKey
+        public Hotkey PageUpKey
         {
-            get { return settings.SmallerKey; }
+            get { return settings.PageUpKey; }
             set
             {
-                settings.SmallerKey = value;
+                settings.PageUpKey = value;
                 Save();
             }
         }
