@@ -8,6 +8,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:TWK.Prompter.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+            xmlns:util="clr-namespace:TWK.Prompter.Utilities"
         SaveWindowPosition="True"
         mc:Ignorable="d"
         Title="TWK Prompter (Manual)" Height="450" Width="800">
@@ -29,7 +30,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <ScrollViewer x:Name="svText" CanContentScroll="False" Grid.Row="0" BorderBrush="{x:Null}">
-            <xctk:RichTextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="{x:Null}"  Grid.Column="1" x:Name="rtbText" local:RichTextBoxHelper.DocumentXaml="{Binding Document}" FontSize="40" RenderTransformOrigin="{Binding Settings.Scale, Converter={StaticResource RenderScaleConverter}}"  Foreground="White" Background="{x:Null}">
+            <xctk:RichTextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="{x:Null}"  Grid.Column="1" x:Name="rtbText" util:RichTextBoxHelper.DocumentXaml="{Binding Document}" FontSize="40" RenderTransformOrigin="{Binding Settings.Scale, Converter={StaticResource RenderScaleConverter}}"  Foreground="White" Background="{x:Null}">
                 <xctk:RichTextBox.TextFormatter>
                     <xctk:RtfFormatter />
                 </xctk:RichTextBox.TextFormatter>

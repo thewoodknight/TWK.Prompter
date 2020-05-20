@@ -1,5 +1,4 @@
-﻿using DocxReaderApplication;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using System.IO;
 
 namespace TWK.Prompter.View
