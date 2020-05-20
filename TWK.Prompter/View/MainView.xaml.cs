@@ -1,7 +1,6 @@
-﻿using MahApps.Metro.Controls;
-using System.Windows;
-using System.Windows.Input;
-using TWK.Prompter.ViewModel;
+﻿using DocxReaderApplication;
+using MahApps.Metro.Controls;
+using System.IO;
 
 namespace TWK.Prompter.View
 {

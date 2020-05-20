@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using TWK.HotkeyControl;
 using TWK.Prompter.Events;
 
@@ -14,18 +15,18 @@ namespace TWK.Prompter.ViewModel
         public SettingsManager Settings { get; set; }
         private readonly IEventAggregator eventAggregator;
 
-        public string Text { get; set; }
+        public FlowDocument Document { get; set; }
 
         WindowsHotkeyService hotkeyservice = new WindowsHotkeyService();
 
-        public ManualPlayerViewModel(IEventAggregator eventAggregator, SettingsManager Settings, string text)
+        public ManualPlayerViewModel(IEventAggregator eventAggregator, SettingsManager Settings, FlowDocument document)
         {
             this.eventAggregator = eventAggregator;
             this.Settings = Settings;
 
             InitShortcuts();
 
-            Text = text;
+            Document = document;
 
         }
 

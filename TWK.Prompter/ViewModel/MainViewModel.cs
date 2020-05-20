@@ -1,17 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using DocxReaderApplication;
 using Stylet;
 using TWK.Prompter.Events;
 using TWK.Prompter.Models;
 
 namespace TWK.Prompter.ViewModel
 {
-    public class MainViewModel : Screen, IHandle<ScriptFolderChangedEvent>
+    public class MainViewModel : Screen, IHandle<ScriptFolderChangedEvent>, INotifyPropertyChanged
     {
+        public FlowDocument Document { get; set; }
         public string Text { get; set; }
         public ObservableCollection<Item> Files { get; set; }
         public SettingsManager Settings { get; set; }
@@ -56,7 +61,7 @@ namespace TWK.Prompter.ViewModel
                 items.Add(item);
             }
 
-            foreach (var file in dirInfo.GetFiles().Where(f => f.Extension == ".rtf"))
+            foreach (var file in dirInfo.GetFiles().Where(f => f.Extension == ".rtf" || f.Extension == ".docx"))
             {
 
                 var item = new FileItem
@@ -76,18 +81,38 @@ namespace TWK.Prompter.ViewModel
             var item = (Item)((TreeView)sender).SelectedItem;//This is gross, but TreeView doesnt' have a bindable SelectedItem
             if (item != null)
             {
+               
+
                 using (var fileStream = new FileStream(item.Path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (var textReader = new StreamReader(fileStream))
                 {
-                    Text = textReader.ReadToEnd();
+
+                    if (item.Path.Contains(".rtf"))
+                    {
+                        FlowDocument flowDocument = new FlowDocument();
+                        TextRange textRange = new TextRange(flowDocument.ContentStart, flowDocument.ContentEnd);
+                        textRange.Load(fileStream, DataFormats.Rtf);
+
+                        Document = flowDocument;
+                    }
+                    else
+                    {
+                        var flowDocumentConverter = new DocxToFlowDocumentConverter(fileStream);
+                        flowDocumentConverter.Read();
+                        Document = flowDocumentConverter.Document;
+                    }
                 }
+
+              
             }
         }
 
         public void ManualPlay()
         {
             //more params like speed, mirror, scale should be passed in?
-            var viewModel = new ManualPlayerViewModel(eventAggregator, Settings, Text);
+            var doc = Document;
+            this.Document = null;
+            var viewModel = new ManualPlayerViewModel(eventAggregator, Settings, doc);
+
             windowManager.ShowDialog(viewModel);
         }
 

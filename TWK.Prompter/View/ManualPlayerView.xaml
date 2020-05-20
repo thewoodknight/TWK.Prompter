@@ -29,7 +29,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <ScrollViewer x:Name="svText" CanContentScroll="False" Grid.Row="0" BorderBrush="{x:Null}">
-            <xctk:RichTextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="{x:Null}"  Grid.Column="1" x:Name="rtbText" Text="{Binding Text}" FontSize="40" RenderTransformOrigin="{Binding Settings.Scale, Converter={StaticResource RenderScaleConverter}}"  Foreground="White" Background="{x:Null}">
+            <xctk:RichTextBox IsReadOnly="True" IsHitTestVisible="False" BorderBrush="{x:Null}"  Grid.Column="1" x:Name="rtbText" local:RichTextBoxHelper.DocumentXaml="{Binding Document}" FontSize="40" RenderTransformOrigin="{Binding Settings.Scale, Converter={StaticResource RenderScaleConverter}}"  Foreground="White" Background="{x:Null}">
                 <xctk:RichTextBox.TextFormatter>
                     <xctk:RtfFormatter />
                 </xctk:RichTextBox.TextFormatter>

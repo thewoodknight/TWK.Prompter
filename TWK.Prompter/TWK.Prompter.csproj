@@ -112,6 +112,8 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\MirrorConverter.cs" />
     <Compile Include="Converters\RenderScaleConverter.cs" />
+    <Compile Include="DocxReader1.cs" />
+    <Compile Include="DocxToFlowDocumentConverter.cs" />
     <Compile Include="Events\ChangeMadeEnum.cs" />
     <Compile Include="Events\ChangeMadeEvent.cs" />
     <Compile Include="Events\PlayPauseEvent.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\ItemProvider.cs" />
     <Compile Include="Models\Settings.cs" />
+    <Compile Include="RichTextBoxHelper.cs" />
     <Compile Include="SettingsManager.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ManualPlayerViewModel.cs" />

@@ -57,7 +57,7 @@
             </StackPanel>
         </StackPanel>
 
-        <xctk:RichTextBox  Grid.Column="1" x:Name="rtbText" Text="{Binding Text}" Padding="10" FontSize="40" RenderTransformOrigin="{Binding Settings.Scale, Converter={StaticResource RenderScaleConverter}}"   Foreground="White" Background="{StaticResource GrayBrush1}">
+        <xctk:RichTextBox  Grid.Column="1" x:Name="rtbText" local:RichTextBoxHelper.DocumentXaml="{Binding Document}" Padding="10" FontSize="40" RenderTransformOrigin="{Binding Settings.Scale, Converter={StaticResource RenderScaleConverter}}"   Foreground="White" Background="{StaticResource GrayBrush1}">
             <xctk:RichTextBox.TextFormatter>
                 <xctk:RtfFormatter />
             </xctk:RichTextBox.TextFormatter>

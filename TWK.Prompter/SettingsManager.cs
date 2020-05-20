@@ -14,6 +14,8 @@ namespace TWK.Prompter
         private const string settingsFile = "twk.prompter.settings";
         private Settings settings;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private Settings GetDefaultSettings()
         {
             return new Settings()
@@ -23,8 +25,6 @@ namespace TWK.Prompter
                 Scale = 1,
             };
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public SettingsManager()
         {
