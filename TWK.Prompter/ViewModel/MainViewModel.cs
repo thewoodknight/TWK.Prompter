@@ -7,10 +7,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using DocxReaderApplication;
 using Stylet;
 using TWK.Prompter.Events;
 using TWK.Prompter.Models;
+using TWK.Prompter.Utilities;
 
 namespace TWK.Prompter.ViewModel
 {

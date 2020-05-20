@@ -1,12 +1,10 @@
-﻿using System.IO;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Documents;
 using Xceed.Wpf.Toolkit;
 
-namespace TWK.Prompter.Converters
+namespace TWK.Prompter.Utilities
 {
-    //https://stackoverflow.com/questions/343468/richtextbox-wpf-binding
+    //Derived from https://stackoverflow.com/a/2641774
     public class RichTextBoxHelper : DependencyObject
     {
         public static string GetDocumentXaml(DependencyObject obj)

@@ -1,9 +1,15 @@
-﻿using System;
+﻿/*  
+ *  Source: https://www.codeproject.com/Articles/649064/Show-Word-File-in-WPF
+ *  Author: Mario Z 
+ *  License: CPOL (https://www.codeproject.com/info/cpol10.aspx)
+ */
+
+using System;
 using System.IO;
 using System.IO.Packaging;
 using System.Xml;
 
-namespace DocxReaderApplication
+namespace TWK.Prompter.Utilities
 {
 
     public class DocxReader : IDisposable
@@ -72,7 +78,7 @@ namespace DocxReaderApplication
 
         protected PackagePart MainDocumentPart
         {
-            get { return this.mainDocumentPart; }
+            get { return mainDocumentPart; }
         }
 
         public DocxReader(Stream stream)
@@ -80,26 +86,26 @@ namespace DocxReaderApplication
             if (stream == null)
                 throw new ArgumentNullException("stream");
 
-            this.package = Package.Open(stream, FileMode.Open, FileAccess.Read);
+            package = Package.Open(stream, FileMode.Open, FileAccess.Read);
 
-            foreach (var relationship in this.package.GetRelationshipsByType(MainDocumentRelationshipType))
+            foreach (var relationship in package.GetRelationshipsByType(MainDocumentRelationshipType))
             {
-                this.mainDocumentPart = package.GetPart(PackUriHelper.CreatePartUri(relationship.TargetUri));
+                mainDocumentPart = package.GetPart(PackUriHelper.CreatePartUri(relationship.TargetUri));
                 break;
             }
         }
 
         public void Read()
         {
-            using (var mainDocumentStream = this.mainDocumentPart.GetStream(FileMode.Open, FileAccess.Read))
+            using (var mainDocumentStream = mainDocumentPart.GetStream(FileMode.Open, FileAccess.Read))
             using (var reader = XmlReader.Create(mainDocumentStream, new XmlReaderSettings()
             {
-                NameTable = this.CreateNameTable(),
+                NameTable = CreateNameTable(),
                 IgnoreComments = true,
                 IgnoreProcessingInstructions = true,
                 IgnoreWhitespace = true
             }))
-                this.ReadMainDocument(reader);
+                ReadMainDocument(reader);
         }
 
         private static void ReadXmlSubtree(XmlReader reader, Action<XmlReader> action)
@@ -119,7 +125,7 @@ namespace DocxReaderApplication
             while (reader.Read())
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == DocumentElement)
                 {
-                    ReadXmlSubtree(reader, this.ReadDocument);
+                    ReadXmlSubtree(reader, ReadDocument);
                     break;
                 }
         }
@@ -129,7 +135,7 @@ namespace DocxReaderApplication
             while (reader.Read())
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == BodyElement)
                 {
-                    ReadXmlSubtree(reader, this.ReadBody);
+                    ReadXmlSubtree(reader, ReadBody);
                     break;
                 }
         }
@@ -137,7 +143,7 @@ namespace DocxReaderApplication
         private void ReadBody(XmlReader reader)
         {
             while (reader.Read())
-                this.ReadBlockLevelElement(reader);
+                ReadBlockLevelElement(reader);
         }
 
         private void ReadBlockLevelElement(XmlReader reader)
@@ -150,11 +156,11 @@ namespace DocxReaderApplication
                     switch (reader.LocalName)
                     {
                         case ParagraphElement:
-                            action = this.ReadParagraph;
+                            action = ReadParagraph;
                             break;
 
                         case TableElement:
-                            action = this.ReadTable;
+                            action = ReadTable;
                             break;
                     }
 
@@ -167,9 +173,9 @@ namespace DocxReaderApplication
             while (reader.Read())
             {
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == ParagraphPropertiesElement)
-                    ReadXmlSubtree(reader, this.ReadParagraphProperties);
+                    ReadXmlSubtree(reader, ReadParagraphProperties);
                 else
-                    this.ReadInlineLevelElement(reader);
+                    ReadInlineLevelElement(reader);
             }
         }
 
@@ -188,15 +194,15 @@ namespace DocxReaderApplication
                     switch (reader.LocalName)
                     {
                         case SimpleFieldElement:
-                            action = this.ReadSimpleField;
+                            action = ReadSimpleField;
                             break;
 
                         case HyperlinkElement:
-                            action = this.ReadHyperlink;
+                            action = ReadHyperlink;
                             break;
 
                         case RunElement:
-                            action = this.ReadRun;
+                            action = ReadRun;
                             break;
                     }
 
@@ -207,13 +213,13 @@ namespace DocxReaderApplication
         private void ReadSimpleField(XmlReader reader)
         {
             while (reader.Read())
-                this.ReadInlineLevelElement(reader);
+                ReadInlineLevelElement(reader);
         }
 
         protected virtual void ReadHyperlink(XmlReader reader)
         {
             while (reader.Read())
-                this.ReadInlineLevelElement(reader);
+                ReadInlineLevelElement(reader);
         }
 
         protected virtual void ReadRun(XmlReader reader)
@@ -221,9 +227,9 @@ namespace DocxReaderApplication
             while (reader.Read())
             {
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == RunPropertiesElement)
-                    ReadXmlSubtree(reader, this.ReadRunProperties);
+                    ReadXmlSubtree(reader, ReadRunProperties);
                 else
-                    this.ReadRunContentElement(reader);
+                    ReadRunContentElement(reader);
             }
         }
 
@@ -242,15 +248,15 @@ namespace DocxReaderApplication
                     switch (reader.LocalName)
                     {
                         case BreakElement:
-                            action = this.ReadBreak;
+                            action = ReadBreak;
                             break;
 
                         case TabCharacterElement:
-                            action = this.ReadTabCharacter;
+                            action = ReadTabCharacter;
                             break;
 
                         case TextElement:
-                            action = this.ReadText;
+                            action = ReadText;
                             break;
                     }
 
@@ -277,25 +283,25 @@ namespace DocxReaderApplication
         {
             while (reader.Read())
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == TableRowElement)
-                    ReadXmlSubtree(reader, this.ReadTableRow);
+                    ReadXmlSubtree(reader, ReadTableRow);
         }
 
         protected virtual void ReadTableRow(XmlReader reader)
         {
             while (reader.Read())
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace && reader.LocalName == TableCellElement)
-                    ReadXmlSubtree(reader, this.ReadTableCell);
+                    ReadXmlSubtree(reader, ReadTableCell);
         }
 
         protected virtual void ReadTableCell(XmlReader reader)
         {
             while (reader.Read())
-                this.ReadBlockLevelElement(reader);
+                ReadBlockLevelElement(reader);
         }
 
         public void Dispose()
         {
-            this.package.Close();
+            package.Close();
         }
     }
 }

@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*  
+ *  Source: https://www.codeproject.com/Articles/649064/Show-Word-File-in-WPF
+ *  Author: Mario Z 
+ *  License: CPOL (https://www.codeproject.com/info/cpol10.aspx)
+ */
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -10,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Xml;
 
-namespace DocxReaderApplication
+namespace TWK.Prompter.Utilities
 {
     public class DocxToFlowDocumentConverter : DocxReader
     {
@@ -56,7 +61,7 @@ namespace DocxReaderApplication
 
         public FlowDocument Document
         {
-            get { return this.document; }
+            get { return document; }
         }
 
         public DocxToFlowDocumentConverter(Stream stream)
@@ -101,21 +106,21 @@ namespace DocxReaderApplication
 
         protected override void ReadDocument(XmlReader reader)
         {
-            this.document = new FlowDocument();
-            this.document.BeginInit();
-            this.document.ColumnWidth = double.NaN;
+            document = new FlowDocument();
+            document.BeginInit();
+            document.ColumnWidth = double.NaN;
 
             base.ReadDocument(reader);
 
-            if (this.hasAnyHyperlink)
-                this.document.AddHandler(Hyperlink.RequestNavigateEvent, new RequestNavigateEventHandler((sender, e) => Process.Start(e.Uri.ToString())));
+            if (hasAnyHyperlink)
+                document.AddHandler(Hyperlink.RequestNavigateEvent, new RequestNavigateEventHandler((sender, e) => Process.Start(e.Uri.ToString())));
 
-            this.document.EndInit();
+            document.EndInit();
         }
 
         protected override void ReadParagraph(XmlReader reader)
         {
-            using (this.SetCurrent(new Paragraph()))
+            using (SetCurrent(new Paragraph()))
                 base.ReadParagraph(reader);
         }
 
@@ -129,7 +134,7 @@ namespace DocxReaderApplication
             while (reader.Read())
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace)
                 {
-                    var paragraph = (Paragraph)this.current;
+                    var paragraph = (Paragraph)current;
                     switch (reader.LocalName)
                     {
                         case AlignmentElement:
@@ -160,17 +165,17 @@ namespace DocxReaderApplication
             var id = reader[IdAttribute, RelationshipsNamespace];
             if (!string.IsNullOrEmpty(id))
             {
-                var relationship = this.MainDocumentPart.GetRelationship(id);
+                var relationship = MainDocumentPart.GetRelationship(id);
                 if (relationship.TargetMode == TargetMode.External)
                 {
-                    this.hasAnyHyperlink = true;
+                    hasAnyHyperlink = true;
 
                     var hyperlink = new Hyperlink()
                     {
                         NavigateUri = relationship.TargetUri
                     };
 
-                    using (this.SetCurrent(hyperlink))
+                    using (SetCurrent(hyperlink))
                         base.ReadHyperlink(reader);
                     return;
                 }
@@ -181,7 +186,7 @@ namespace DocxReaderApplication
 
         protected override void ReadRun(XmlReader reader)
         {
-            using (this.SetCurrent(new Span()))
+            using (SetCurrent(new Span()))
                 base.ReadRun(reader);
         }
 
@@ -190,7 +195,7 @@ namespace DocxReaderApplication
             while (reader.Read())
                 if (reader.NodeType == XmlNodeType.Element && reader.NamespaceURI == WordprocessingMLNamespace)
                 {
-                    var inline = (Inline)this.current;
+                    var inline = (Inline)current;
                     switch (reader.LocalName)
                     {
                         case BoldElement:
@@ -211,8 +216,8 @@ namespace DocxReaderApplication
                         case DoubleStrikeElement:
                             if (GetOnOffValueAttribute(reader))
                             {
-                                inline.TextDecorations.Add(new TextDecoration() { Location = TextDecorationLocation.Strikethrough, PenOffset = this.current.FontSize * 0.015 });
-                                inline.TextDecorations.Add(new TextDecoration() { Location = TextDecorationLocation.Strikethrough, PenOffset = this.current.FontSize * -0.015 });
+                                inline.TextDecorations.Add(new TextDecoration() { Location = TextDecorationLocation.Strikethrough, PenOffset = current.FontSize * 0.015 });
+                                inline.TextDecorations.Add(new TextDecoration() { Location = TextDecorationLocation.Strikethrough, PenOffset = current.FontSize * -0.015 });
                             }
                             break;
                         case VerticalAlignmentElement:
@@ -247,7 +252,7 @@ namespace DocxReaderApplication
                                 inline.FontSize = uint.Parse(fontSize) * 0.6666666666666667;
                             break;
                         case RightToLeftTextElement:
-                            inline.FlowDirection = (GetOnOffValueAttribute(reader)) ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+                            inline.FlowDirection = GetOnOffValueAttribute(reader) ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
                             break;
                     }
                 }
@@ -255,22 +260,22 @@ namespace DocxReaderApplication
 
         protected override void ReadBreak(XmlReader reader)
         {
-            this.AddChild(new LineBreak());
+            AddChild(new LineBreak());
         }
 
         protected override void ReadTabCharacter(XmlReader reader)
         {
-            this.AddChild(new Run("\t"));
+            AddChild(new Run("\t"));
         }
 
         protected override void ReadText(XmlReader reader)
         {
-            this.AddChild(new Run(reader.ReadString()));
+            AddChild(new Run(reader.ReadString()));
         }
 
         private void AddChild(TextElement textElement)
         {
-            ((IAddChild)this.current ?? this.document).AddChild(textElement);
+            ((IAddChild)current ?? document).AddChild(textElement);
         }
 
         private static bool GetOnOffValueAttribute(XmlReader reader)
@@ -465,13 +470,13 @@ namespace DocxReaderApplication
             {
                 this.converter = converter;
                 this.converter.AddChild(current);
-                this.previous = this.converter.current;
+                previous = this.converter.current;
                 this.converter.current = current;
             }
 
             public void Dispose()
             {
-                this.converter.current = this.previous;
+                converter.current = previous;
             }
         }
     }
